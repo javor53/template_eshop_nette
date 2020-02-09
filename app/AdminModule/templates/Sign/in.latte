@@ -1,0 +1,22 @@
+{block content}
+
+{*control signInForm*}
+<section class="block upload-form">
+    
+    <div class="header">Přihlášení</div>
+    <div class="fit">
+        <form n:name=signInForm class="form">
+              <label n:name=username class="sr-only">Uživatelské jméno</label>
+              <input n:name=username id="inputEmail" class="form-control" placeholder="Uživatelské jméno" required="" autofocus="">
+              <label n:name=password class="sr-only">Heslo</label>
+              <input n:name=password id="inputPassword" class="form-control my-3" placeholder="Heslo" required="">
+              {*<div class="checkbox mb-3">
+                <label>
+                  <input type="checkbox" value="remember-me"> Remember me
+                </label>
+              </div>*}
+              <button class="btn btn-lg btn-accept btn-block my-3" n:name=send>Přihlásit</button>
+              <p class="mt-2 text-muted font-14">© 2019</p>
+        </form>
+    </div>
+</section>

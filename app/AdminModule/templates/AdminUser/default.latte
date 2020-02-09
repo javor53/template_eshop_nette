@@ -1,0 +1,178 @@
+{layout '../@layout.latte'}
+
+{block content}
+{*<h1>Uživatelské účty</h1>
+    <div id="user-accounts-page" class="admin-page-wrapper">
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <button id="open-new-user-modal" class="uk-button uk-button-primary uk-button-large">Nový uživatel</button>
+            </div>
+        </div>
+
+        <div class="uk-grid">
+            <div class="uk-width-1-1" id="user-table-block" data-uk-observe>
+
+            </div>
+        </div>
+
+        <div id="new-user-modal" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <div class="uk-modal-header">
+                    <h2>Nový uživatel</h2>
+                </div>
+
+                <form n:name="newUserForm" class="uk-form">
+                    <div class="uk-form-row">
+                        <label n:name="username" class="label-strong">Login</label>
+                        <div class="uk-form-controls">
+                            <input n:name="username" placeholder="Uživatelské jméno" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="password" class="label-strong">Heslo</label>
+                        <div class="uk-form-controls">
+                            <input n:name="password" placeholder="Heslo" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="passwordVerify" class="label-strong">Ověření hesla</label>
+                        <div class="uk-form-controls">
+                            <input n:name="passwordVerify" placeholder="Ověření hesla" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="firstName" class="label-strong">Jméno</label>
+                        <div class="uk-form-controls">
+                            <input n:name="firstName" placeholder="Jméno" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="lastName" class="label-strong">Příjmení</label>
+                        <div class="uk-form-controls">
+                            <input n:name="lastName" placeholder="Příjmení" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="email" class="label-strong">E-mail</label>
+                        <div class="uk-form-controls">
+                            <input n:name="email" placeholder="E-mail" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="phone" class="label-strong">Telefon</label>
+                        <div class="uk-form-controls">
+                            <input n:name="phone" placeholder="Telefon" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label for="user-role" class="label-strong">Typ účtu</label>
+                        <div class="uk-form-controls">
+                            <input n:name="role" class="display-none uk-hidden">
+                            <select id="user-role" class="uk-width-1-1 uk-form-large">
+                                <option value="supervisor">Supervisor</option>
+                                <option value="admin">Admin</option>
+                                <option value="assistant">Asistent</option>
+                                <option value="storekeeper">Skladník</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                            <br>
+                            <button n:name="save" class="uk-button uk-button-success uk-button-large">Uložit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="edit-user-modal" class="uk-modal">
+            <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+
+                <div class="uk-modal-header">
+                    <h2>Upravit uživatele</h2>
+                </div>
+
+                <form n:name="editUserForm" class="uk-form">
+                    <input n:name="id" class="display-none uk-hidden">
+                    <input n:name="originalPassword" class="display-none uk-hidden">
+
+                    <div class="uk-form-row">
+                        <label n:name="username" class="label-strong">Login</label>
+                        <div class="uk-form-controls">
+                            <input n:name="username" placeholder="Uživatelské jméno" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label for="original-password" class="label-strong">Zachovat původní heslo</label>
+                        <input type="checkbox" id="original-password" checked>
+                    </div>
+                    <div class="uk-form-row password-row display-none">
+                        <label n:name="password" class="label-strong">Heslo</label>
+                        <div class="uk-form-controls">
+                            <input n:name="password" placeholder="Heslo" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row password-row display-none">
+                        <label n:name="passwordVerify" class="label-strong">Ověření hesla</label>
+                        <div class="uk-form-controls">
+                            <input n:name="passwordVerify" placeholder="Ověření hesla" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="firstName" class="label-strong">Jméno</label>
+                        <div class="uk-form-controls">
+                            <input n:name="firstName" placeholder="Jméno" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="lastName" class="label-strong">Příjmení</label>
+                        <div class="uk-form-controls">
+                            <input n:name="lastName" placeholder="Příjmení" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="email" class="label-strong">E-mail</label>
+                        <div class="uk-form-controls">
+                            <input n:name="email" placeholder="E-mail" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label n:name="phone" class="label-strong">Telefon</label>
+                        <div class="uk-form-controls">
+                            <input n:name="phone" placeholder="Telefon" class="uk-width-1-1 uk-form-large">
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <label for="user-role" class="label-strong">Typ účtu</label>
+                        <div class="uk-form-controls">
+                            <input n:name="role" class="display-none uk-hidden">
+                            <select id="edit-user-role" class="uk-width-1-1 uk-form-large">
+                                <option value="supervisor">Supervisor</option>
+                                <option value="admin">Admin</option>
+                                <option value="assistant">Asistent</option>
+                                <option value="storekeeper">Skladník</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls">
+                            <br>
+                            <button n:name="save" class="uk-button uk-button-success uk-button-large">Uložit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+{/block}
+
+{block script}
+    <script src="{$basePath}/assets/js/default.js"></script>
+*}
+{/block}

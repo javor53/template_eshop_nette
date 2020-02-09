@@ -1,0 +1,10 @@
+parameters:
+
+
+database:
+    eshopdb:
+        dsn: 'mysql:host=127.0.0.1;dbname=templateeshopdb'
+        user: root
+        password: 
+        options:
+                lazy: yes

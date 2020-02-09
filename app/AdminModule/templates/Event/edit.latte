@@ -1,0 +1,44 @@
+{block content}
+
+
+<section class="sections block blog-upload">
+    <div class="header">Upravit událost</div>
+    <div class="btns">
+                <a n:href="Event:adminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+    </div>
+    <div class="fit">
+        <form n:name=editEventForm class="form ">
+
+            <input n:name=id id="" type="text" class="d-none">
+
+            <div class="">
+               <label for="event" class="w-100 mt-3 small">Název události:</label>
+              <input n:name=title id="event" type="text" class="form-control" placeholder="Název události" required="" autofocus="">
+            </div>
+            <div class="">
+              <label for="date" class="w-100 mt-3 small">Datum:</label>  
+              <input n:name=date id="date" type="text" class="form-control" placeholder="Datum" required="" autofocus="">
+            </div>
+            <div class="">
+              <label for="place" class="w-100 mt-3 small">Místo:</label>
+              <input n:name=place id="place" type="text" class="form-control" placeholder="Místo" required="" autofocus="">
+            </div>
+            <div class="">              
+                <textarea n:name=description id="textContent" rows="7" class="d-none form-control mt-1 mb-3"  autofocus=""></textarea>
+                <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                        src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+                </iframe> 
+            </div>
+            {*<div class="input-group">    
+              <textarea n:name=description id="" rows="3" class="form-control mt-1 mb-3 " placeholder="Popis" required="" autofocus=""></textarea>
+            </div>*}
+
+
+            <button class="btn btn-lg btn-accept btn-block my-3" onclick="LoadContent();" n:name=save>Uložit úpravy</button>
+
+        </form>
+    </div>
+</section>

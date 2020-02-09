@@ -1,0 +1,63 @@
+
+{block content}
+<section class="block big">
+    {form orderStatus}
+    <div class="header">Objednávky</div>
+    <div class="btns sticky-2">
+        <a>
+        <button n:name=submit type="submit" class="btn btn-secondary btn-add">
+                  Uložit
+        </button>
+        </a>
+    </div>
+    <table class="image-list__table font-14">
+        <tr>
+            <th class="d-none-sm">ID a datum</th>
+            <th class="">Jméno a příjmení</th>
+            <th>Způsob dopravy</th>
+            <th>Platba</th>
+            <th>Stav
+                <a class="" n:href="filterStatus!">
+                <img class="sort-icon" src="{$basePath}/assets/images/sort_icon.png">
+                </a>
+            </th>
+            <th>Cena</th>
+            <th></th>
+        </tr>
+        {snippet orders}
+            {var $i = 0}
+            <div n:multiplier="order">
+            {*<order  n:inner-foreach="$orders as $order">*}
+                
+                {var $order = $orders[$i]}
+
+                <tr class="post-catogory-row">
+                    <td class="">{$order->id}<br>{$order->created_at}</td>
+                    <td class="">{$order->full_name}</td>
+                    <td class="">{$configTransport[$order->transport]}</td>
+                    <td class=""><div id="circle-{$order->payment_status}"></div>{$configPayment[$order->payment]}</td>
+                    <td class="">
+                        {*<input n:name=ids value="{$order->id}" type="hidden">
+                        <select  n:name=selStatus value="{$order->id}" >
+
+                        </select>*}
+
+                                <input n:name=ids value="{$order->id}" type="hidden">
+                                {input selStatus:$order->id}
+                                {*control orderStatus-$order->id*}
+                    </td>
+                    <td class="">{$order->total_price}</td>
+                    <td>
+                        <a n:href="Order:detail $order->id" n:if="$user->loggedIn">
+                            <div class="btn btn-info  user-table__icon float-right"><img src="{$basePath}/assets/images/search_icon.png"></div>
+                        </a>
+                    </td>
+                </tr>
+                {php $i++}
+                
+           {* </order>*}  
+            </div>
+        {/snippet}
+    {/form}
+    </table>
+</section>

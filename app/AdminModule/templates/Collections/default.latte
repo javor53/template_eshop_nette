@@ -1,0 +1,22 @@
+
+﻿{block content}
+{snippet itemsContainer}
+<div class="">
+
+    
+
+    <div style="height: 28px;" class="collections row col-md-auto justify-content-center mt-2">
+            <coll n:foreach="$collections as $collection">
+                    {snippet coll-$collection->title}
+                    <a class="colH nounderline mx-5 px-2 ajax"  n:href="update! $collection->title" >
+                        <h3 style="font-size: 22px;color:#758573;">{$collection->title}</h3>
+                    </a>&nbsp&nbsp
+                   {* n:href="Homepage:default $collection->title"*}
+                    {/snippet} 
+                   <br>
+                    
+            </coll>
+        </div><br>
+
+</div>
+{/snippet}

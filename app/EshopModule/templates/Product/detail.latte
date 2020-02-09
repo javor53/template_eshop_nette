@@ -1,0 +1,83 @@
+
+{block content}
+
+<section class="block big">
+    <form n:name=editProductForm class="form ">   
+        <div class="header">Produkt: {$product->title}</div>
+        <div class="btns sticky-2">
+            <a  n:if="$user->loggedIn">
+                    <button class="btn btn-add" onclick="LoadContent();" n:name=save>Uložit</button>
+            </a>
+            
+            <a onclick="return confirm('Smazat produkt?');" n:href="Product:deleteProduct $product->id" n:if="$user->loggedIn">
+                    <div class="btn btn-add icons"><img src="{$basePath}/assets/images/del_icon.png"> Smazat</div>
+            </a>
+           
+            
+            <a n:href=":Eshop:Product:" class="">
+                    <div class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></div>
+            </a>  
+        </div>
+        
+        
+        
+        
+         
+        <div class="product-detail">
+            <input n:name=id id="id" type="text" class="form-control d-none" required="">
+            <label class="font-14">Název:</label>
+            <p><input n:name=title id="title" type="text" class="form-control" required=""></p>
+            <label class="font-14">Krátký popis:</label>
+            <p><input n:name=subtitle id="title" type="text" class="form-control" required=""></p>
+            <label class="font-14">Podrobný popis:</label>
+
+            <textarea n:name=description id="textContent" rows="15" class="d-none form-control  my-1"  autofocus=""></textarea>
+            <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                    src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+            </iframe>
+                    
+            {snippet productImages}
+                 <productImages n:inner-foreach="$productImages as $image">   
+                    <div class="d-inline">
+                        <img class="img-150x150" src="{$basePath . '/' . $image->dir . $image->title . $image->suffix}" alt="">
+                        <a class="ajax" n:href="deleteProductImage! $product->id,$image->id,$image->dir . $image->title . $image->suffix">
+                            <button class="btn btn-secondary">X</button>
+                        </a>
+                    </div>
+                </productImages>                   
+            {/snippet}
+                    
+            <div class="custom-file w-50 mt-5">
+                <input n:name=file type="file" class="custom-file-input" id="customFile">
+                <label class="custom-file-label" for="customFile">Vybrat soubor</label>
+                <label for="iTitle" class="w-100 mt-3 small">Název obrázku:</label>
+                <input n:name=imageTitle id="iTitle" type="text" class="form-control" required=""> 
+            </div>
+             <div class="mt-5 w-50">       
+                <label class="font-14 w-100">Cena:</label>
+                <label class="w-100 mt-3 small"></label>
+                <input n:name=price  class="form-control" required="">
+                <label class="w-100 mt-3 small">Nákupní cena</label>
+                <input n:name=cost_price  class="form-control" required="">
+                <label class="w-100 mt-3 small">Standardní cena</label>
+                <input n:name=standard_price  class="form-control" required="">
+                <label class="w-100 mt-3 small">Akční cena</label>
+                <input n:name=special_price class="form-control" required="">
+             </div>
+             <div class="my-5  w-50">       
+                <label class="font-14 w-100">Sklad:</label>
+                <label class="w-100 mt-3 small">Aktuální stav</label>
+                <input n:name=quantity class="form-control" required="">
+                <label class="w-100 mt-3 small">Minimální množství</label>
+                <input n:name=min_quantity class="form-control" required="">
+                <label class="w-100 mt-3 small">Maximální množství</label>
+                <input n:name=max_quantity  class="form-control" required="">
+                <label class="w-100 mt-3 small">Dostupnost</label>
+                <select n:name=availability  class="form-control" required=""></select>
+             </div>       
+                    
+        </div>
+        </form>
+                    
+</section>

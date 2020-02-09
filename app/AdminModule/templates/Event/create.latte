@@ -1,0 +1,51 @@
+{block content}
+
+
+<section class="sections block blog-upload">
+    <div class="header">Vytvořit událost</div>
+    
+    <div class="fit">
+        <form n:name=eventForm class="form ">
+
+
+            <label class="label-strong">Zvolit úvodní obrázek</label>
+
+            <div class="custom-file">
+              <input n:name=file type="file"  class="custom-file-input" id="inputEventImg">
+              <label n:name=file type="file" class="custom-file-label" for="inputEventImg" >...</label>
+            </div>
+
+
+            <label n:name=img_title class="sr-only">Název</label>
+            <input n:name=img_title id="" class="form-control my-3 " placeholder="Název souboru" required="" autofocus="">
+
+            <h4 class="mt-5 label-strong">Detaily akce</h4>
+            <div class="input-group ">    
+              <input n:name=title id="" type="text" class="form-control mt-3" placeholder="Název události" required="" autofocus="">
+            </div>
+
+            <div class="input-group">    
+              <input n:name=date id="" type="text" class="form-control mt-3" placeholder="Datum" required="" autofocus="">
+            </div>
+            <div class="input-group">    
+              <input n:name=place id="" type="text" class="form-control mt-3" placeholder="Místo" required="" autofocus="">
+            </div>
+            <div class="input-group">    
+              <textarea n:name=description id="textContent" rows="7" class="d-none form-control mt-1 mb-3"  autofocus=""></textarea>
+                <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                        src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+                </iframe> 
+              
+            </div>
+            <input n:name=imgId id="" type="text" class="form-control mt-3 d-none" >
+            {*<div class="input-group">    
+              <textarea n:name=description id="" rows="3" class="form-control mt-1 mb-3 " placeholder="Popis" required="" autofocus=""></textarea>
+            </div>*}
+
+
+            <button class="btn btn-lg btn-accept btn-block my-3" onclick="LoadContent();" n:name=save>Vytvořit</button>
+
+        </form>
+    </div>
+</section>

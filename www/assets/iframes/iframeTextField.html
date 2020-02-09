@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="../src/css/wysiwyg.css" rel="stylesheet">
+         <link href="../src/css/adminstyles.css" rel="stylesheet">
+         <script src="../vendor/js/jquery-1.12.4.js"></script>
+         <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+        
+        <script src="../vendor/js/jquery-ui.js"></script>
+        <script type="text/javascript" src="../vendor/contextMenu/contextMenu.min.js"></script>
+        <script type="text/javascript" src="../vendor/colorPicker/js/bcPicker.js"></script>
+        <script type="text/javascript" src="../src/js/wysiwyg.js"></script>
+        <script type="text/javascript" src="../vendor/js/jquery-ui-droppable-iframe.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="../vendor/richtext/richtext.min.css">
+        <link rel="stylesheet" href="../vendor/colorPicker/css/bcPicker.css">
+        <script type="text/javascript" src="../vendor/richtext/jquery.richtext.js"></script>
+        
+        
+        <script type="text/javascript">
+            $(function(){
+                $('#bcPicker1').bcPicker({defaultColor: '000000'});
+
+                $('.bcPicker-palette').on('click', '.bcPicker-color', function(){
+                        var color = $(this).css('background-color');
+                        setColor($.fn.bcPicker.toHex(color));
+                        $(".bcPicker-picker").css("background-color",$.fn.bcPicker.toHex(color));
+
+                });
+            });
+            
+            
+        </script>
+    </head>
+    
+    <body>
+        <div id="wysiwyg_menu" contenteditable="false" class="wysiwyg_menu">
+            
+            
+            
+            <button type="button" class="input-item" onclick="iBold();" value=""><span class="fas fa-bold"></span></button>
+            <button type="button" class="input-item" onclick="iItalic();" value="I"><span class="fas fa-italic"></span></button>
+            <button type="button" class="input-item" onclick="iUnderline();" value="_"><span class="fas fa-underline"></span></button>
+            <button type="button" class="input-item color-picker" id="bcPicker1" ></button>
+            <button type="button" class="input-item" onclick="iUnorderedList();" value="UL"><span class="fas fa-list-ul"></span></button>
+            <button type="button" class="input-item" onclick="iOrderedList();" value="OL"><span class="fas fa-list-ol"></span></button>
+            <button type="button" class="input-item js-textAlignL"><span class="fas fa-align-left"></span></button>
+            <button type="button" class="input-item js-textAlignR"><span class="fas fa-align-right"></span></button>
+            <button type="button" class="input-item js-textAlignC"><span class="fas fa-align-center"></span></button>
+            <button type="button" class="input-item" onclick="iLink();" value="Odkaz"><span class="fas fa-link"></span></button>
+            
+            <div class="dropdown">
+                <button type="button" onclick="dropdown()" class="dropbtn" value=""><span class="fas fa-text-height"></span></button>
+                <div id="myDropdown" class="dropdown-content">
+                  <button type="button" class="js-fontXS noselect">9 pt</button>
+                  <button type="button" class="js-fontS noselect">12 pt</button>
+                  <button type="button" class="js-fontM noselect">14 pt</button>
+                  <button type="button" class="js-fontL noselect">18 pt</button>
+                  <button type="button" class="js-fontXL noselect">24 pt</button>
+                </div>
+            </div>
+            
+            
+            
+        </div>
+         
+        <div id="wysiwyg_iContent" class="wysiwyg_iContent ">
+            
+            <div id="droppable" contenteditable="true" class="droppable ui-droppable">
+                <br>
+           <!-- <img class="img-article col-12" src="../../img/postsImg/testst.jpg" alt="img">-->
+           <!--<div id="1" contenteditable="false" class="context-menu">
+                    
+           </div>-->
+               <!--<div class="boxx" id="2">
+                 <img class="img-article" contenteditable="false" src="https://source.unsplash.com/random/300x200">
+                 <div class="handle" id="2h"></div>
+               </div>-->
+            </div>
+           
+        </div>
+
+            <div id='cntnr'>
+              <ul id='items'>
+                  <li class="others"><a href="" id="test" class="js-float-left oneline "><span class="fas fa-align-left"></span></a>
+                      <a href="" id="test" class="js-float-right oneline "><span class="fas fa-align-right"></span></a>
+                      <a href="" id="test" class="js-float-none oneline "><span class="fas fa-align-justify"></span></a></li>
+
+                  <li id="res"><a href="" id="test" class="js-resize ">Změnit velikost</a></li>
+                  <li id="stopres" class="d-none"><a href="" id="test" class="js-stopresize">Uložit změny</a></li>
+                <li class="others"><a href="" id="test" class="js-delete">Smazat</a></li>  
+              </ul>
+            </div>
+            <!--<div class='resize'>
+                <div id="resize-lt"></div>
+                <div id="resize-lb"></div>
+                <div id="resize-rt"></div>
+                <div id="resize-rb"></div>
+            </div>-->
+        
+            <div class="drag-icon"></div>
+        
+        
+    </body>
+</html>

@@ -1,0 +1,57 @@
+{block content}
+
+
+<section class="block edit-user">
+    <div class="header">Upravit uživatelský účet</div>
+    
+    <div class="btns">
+            <a n:href=":Admin:AdminUser:userTable" class="">
+                <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+            </a>            
+    </div>
+    <form n:name=editUserForm class="form mt-3 mx-5">
+
+        <input n:name="id" class="d-none">
+        <input n:name="originalPassword" class="d-none">
+        <div class="input-group">    
+          <input n:name=username id="" type="text" class="form-control mt-3" placeholder="Uživatelské jméno" required="" autofocus="">
+        </div>
+        <div class="input-group my-3">  
+          <input n:name=originalPassword class="mt-1 mx-3" type="checkbox" id="" checked>
+          <label for="original-password" class="label-strong">Zachovat původní heslo</label>
+        </div>
+        <div class="input-group"> 
+          <input n:name=password id="" type="password" class="form-control" placeholder="Heslo" required="" autofocus="">
+        </div>
+        <div class="input-group"> 
+          <input n:name=passwordVerify id="" type="password" class="form-control mt-1 mb-3" placeholder="Heslo znovu" required="" autofocus="">
+        </div>
+        <div class="input-group">    
+          <input n:name=firstName id="" type="text" class="form-control mt-3 mb-3 " placeholder="Jméno" required="" autofocus="">
+          <input n:name=lastName id="" type="text" class="form-control mt-3 mb-3 " placeholder="Přijmení" required="" autofocus="">
+        </div>
+        <div class="input-group"> 
+          <input n:name=email id="" type="text" class="form-control mt-1 mb-3 " placeholder="E-mail" required="" autofocus="">
+        </div>
+        <div class="input-group"> 
+          <input n:name=phone id="" type="text" class="form-control mt-1 mb-3 " placeholder="Telefonní číslo" required="" autofocus="">
+        </div>
+
+       
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text " for="inputGroupSelect01">Typ účtu</label>
+          </div>
+
+          <select n:name=role class="custom-select" id="inputGroupSelect01">
+
+          </select>
+        </div>
+
+
+
+        <button class="btn btn-lg btn-block btn-accept my-3 mb-5" n:name=save>Upravit uživatele</button>
+
+  </form>
+</section> 

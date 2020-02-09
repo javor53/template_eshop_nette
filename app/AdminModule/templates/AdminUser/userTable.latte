@@ -1,0 +1,46 @@
+{block content}
+<section class="block user-table wide">
+    <div class="header">Uživatelské účty</div>
+    <div class="btns">
+        <a n:href=":Admin:AdminUser:createNew">
+        <button class="btn btn-secondary btn-add">Vytvořit uživatele</button>
+        </a>
+    </div>
+<div class="table-container">
+    <table class="   uk-table uk-table-hover uk-table-striped responsive-table mt-3">
+        <thead>
+        <tr>
+            <th>Uživatelské jméno</th>
+            <th>Jméno a příjmení</th>
+            <th class="mobile-block">E-mail</th>
+            <th class="mobile-block">Telefon</th>
+            <th>Typ účtu</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {foreach $users as $u}    
+        <tr>
+            <td>{$u->username}</td>
+            <td>{$u->fullName}</td>
+            <td class="mobile-block">{$u->email}</td>
+            <td class="mobile-block">{if $u->phone != null}{$u->phone}{/if}</td>
+            <td>{$u->roleName}</td>
+            <td>
+                <div class="uk-button-group row mb-3">
+                    <a n:href=":Admin:AdminUser:editData $u->id">
+                    <button class="btn btn-secondary user-table__icon"><img src="{$basePath}/assets/images/edit_icon.png"></button>
+                    </a>
+                    <a onclick="return confirm('Smazat Uživatele?');" n:href=":Admin:AdminUser:delete $u->id">
+                    <button class="btn btn-danger user-table__icon"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                    </a>
+
+                </div>
+            </td>
+        </tr>
+        {/foreach}
+        </tbody>
+    </table>
+</div>
+</section>

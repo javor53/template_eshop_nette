@@ -1,0 +1,69 @@
+﻿{block content}
+
+<div id="sectionReportáže" class="">
+<h1 style="font-size: 40px;color:#758573;" class="text-left col-md-12 mt-3 ">Reportáže</h1>
+ <h1 style="font-size:80px;color:#758573;margin-left: 120px;" class="text-left col-md-12 my-3 ">z akcí</h1>
+ 
+    <div  class="row p-lg-3 ">
+        
+        
+        <div class="posts col-md-5 mx-auto">
+            {foreach $posts as $s}
+                {*<div class="date">{$s->created_at|date:'F j, Y'}</div>*}
+                
+                    {if $s->title == $firstPost}
+                        <a style=" " class=" nounderline ajax" href="{link Homepage:default $s->id}" >
+                            <button type="button" style="background-color:  #758573;height:50px;" class="postH active btn btn-outline-light col-12 align-middle text-light text-left mt-3">
+                                <h3 style="font-size: 18px;" class="pt-1 ml-3 ">
+                                {$s->title}                 
+                                </h3>           
+                            </button>
+                        </a> 
+                    {else}
+                        <a style=" " class="nounderline ajax" href="{link Homepage:default $s->id}" >
+                            <button type="button" style="background-color: #B1C2AE;height:50px;" class="postH btn btn-outline-light col-12 align-middle text-light text-left mt-3">
+                                <h3 style="font-size: 18px;" class="pt-1 ml-3 ">
+                                {$s->title}                  
+                                </h3>           
+                            </button></h3>
+                        </a>
+                        
+                        
+                    {/if}
+                    
+                    
+            {/foreach}
+        
+
+            <div class="pagination  ">
+                <p style="color:#758573;">
+                {if !$paginator->isFirst()}
+                    <button type="button" style="background-color: #B1C2AE;" class="btn mt-3 ">
+                        <a class="font-weight-bold nounderline text-light ajax " n:href="default, NULL, 1">První</a></button>
+                    &nbsp;&nbsp;
+                    <button type="button" style="background-color: #B1C2AE;" class="btn mt-3 ">
+                    <a class="font-weight-bold nounderline  text-light ajax " n:href="default, NULL, $paginator->page-1"><</a></button>
+                    &nbsp;&nbsp;
+                {/if}
+                
+                {if !$paginator->isLast()}
+                    &nbsp;&nbsp;
+                    <button type="button" style="background-color: #B1C2AE;" class="btn mt-3 ">
+                    <a class="font-weight-bold nounderline text-light ajax" n:href="default, NULL ,$paginator->page+1">></a></button>
+                    &nbsp;&nbsp;
+                    <button type="button" style="background-color: #B1C2AE;" class="btn  mt-3 ">
+                    <a class="font-weight-bold text-light nounderline ajax" n:href="default, NULL ,$paginator->pageCount">Poslední</a></button>
+                {/if}
+
+                </p>
+                <div style="background-color: #B1C2AE;height: 38px;" class="btn m-3 text-right nounderline text-light  "><p class="font-weight-bold">
+                        Stránka {$paginator->page} z {$paginator->pageCount}</p>
+                </div>
+            </div>
+        </div>
+            
+        {include '../Homepage/show.latte'} 
+    </div>
+</div>
+
+{/block}

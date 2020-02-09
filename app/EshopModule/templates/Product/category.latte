@@ -1,0 +1,148 @@
+
+{block content}
+<section class="block big">
+    {form categoryMultiplierForm}
+        <div class="header">Kategorie produktů</div>
+        <div class="btns sticky-2">
+            <a>
+                <button n:name=submit type="submit" class="btn btn-secondary btn-add">
+                          Uložit
+                </button>
+            </a>
+            <a>
+                <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#addCategory">
+                          Přidat kategorii
+                </button>
+            </a>
+            <a>
+                <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#listCategory">
+                          Seznam kategorií
+                </button>
+            </a>
+        </div>
+         
+
+        
+        <table class="image-list__table stock font-14">
+            <tr>
+                <th class="">ID</th>
+                <th class="col-w-200">Název</th>
+                <th class="col-w-50">Kategorie</th>
+                <th></th>
+            </tr>
+            {snippet categories}
+                {var $i = 0}
+                <div n:multiplier="category">
+            
+                {var $product = $products[$i]}
+                <tr class="post-catogory-row">
+                    <td class="">
+                        {$product->id}
+                        <input n:name=ids value="{$product->id}" type="hidden">
+                    </td>
+                    <td class="col-w-200">{$product->title}</td>
+                    <td class="">
+                        {input selCategory:$product->id}
+                    </td>
+                    <td class="w-unset">
+
+                        <a onclick="return confirm('Smazat produkt?');" n:href="Product:deleteProduct $product->id"  n:if="$user->loggedIn">
+                            <div class="btn btn-danger user-table__icon float-right"><img src="{$basePath}/assets/images/del_icon.png"></div>
+                        </a>
+
+
+                        <a n:href="Product:detail $product->id" n:if="$user->loggedIn">
+                            <div class="btn btn-info  user-table__icon float-right"><img src="{$basePath}/assets/images/search_icon.png"></div>
+                        </a>
+                    </td>
+                </tr>
+                {php $i++}
+           {* </order>*}  
+            </div>
+            {/snippet}
+        </table>
+        {/form}
+        
+        <!-- Modal Form ADD PRODUCT -->
+        <form n:name=addProductCategoryForm class="form ">
+        <div class="modal fade" id="addCategory" tabindex="-1" role="dialog" aria-labelledby="addCategoryLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Přidat kategorii</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                        <label for="title" class="w-100 mt-3 small">Název:</label>
+                        <input n:name=title id="title" type="text" class="form-control" required="">
+                        <label for=desc class="w-100 mt-3 small">Popis kategorie:</label>
+                        <textarea n:name=description id="textContent" rows="15" class="d-none form-control  my-1"  autofocus=""></textarea>
+                        <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                                src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+                        </iframe> 
+                        
+
+              </div>
+              <div class="modal-footer">
+                {*<button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>*}
+                <button class="btn btn-lg btn-primary btn-block my-3 " onclick="LoadContent();" n:name=save>Uložit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        <!-- Modal Form  --> 
+        <!-- Modal Form CATEGORY LIST -->
+        <div class="modal fade" id="listCategory" tabindex="-1" role="dialog" aria-labelledby="listCategoryLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Seznam kategorií</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                       <table class="image-list__table stock font-14">
+                            <tr>
+                                <th class="">ID</th>
+                                <th class="col-w-200">Název</th>
+                                <th class="desc d-none-md">Popis</th>
+                                <th></th>
+                            </tr>
+                            {foreach $categories as $category}
+                            <tr class="post-catogory-row">
+                                <td>{$category->id}</td>
+                                <td class="col-w-200">{$category->title}</td>
+                                <td class="d-none-md">{php echo $category->description}</td>
+
+                                <td class="w-unset">
+                                    <a onclick="return confirm('Smazat produkt?');" n:href="Product:deleteProductCategory $category->id"  n:if="$user->loggedIn">
+                                        <div class="btn btn-danger user-table__icon float-right"><img src="{$basePath}/assets/images/del_icon.png"></div>
+                                    </a>
+                                </td>
+                            </tr>
+                            {/foreach}
+                            <a n:if='!$iterations'><tr class="post-catogory-row">
+                                <td>-</td>
+                                <td class="col-w-200">---</td>
+                                <td> Žádné objednávky k dipozici</td>
+                                <td></td>
+                            </tr></a>
+
+                        </table>
+                        
+
+              </div>
+              <div class="modal-footer">
+
+              </div>
+            </div>
+          </div>
+        </div>
+         <!-- Modal Form  -->     
+</section>
+

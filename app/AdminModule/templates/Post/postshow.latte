@@ -1,0 +1,24 @@
+
+    
+
+
+
+
+    <div class="postImages row my-3  ">
+            {foreach $postImages as $image}    
+                 <div class="col-md-3 p-2 text-center thumb">
+                     
+                    <img class="img-thumbnail p-2" src="{$image->dir . $image->title}" alt="{$image->title}">
+                 
+                    
+                    
+                    <div n:if="$user->loggedIn" style="background-color:#B1C2AE; height:50px;" class="col-12"> 
+                        <a class="float-right mt-1" n:href=":Admin:Post:deleteImg $image->id" n:if="$user->loggedIn" >
+                            <img style="height: 15px;" src="st_img/icocross.png">
+                            <p style="color:black;">Odstranit</p>
+                        </a>
+                    </div> 
+                    
+                    </div>
+            {/foreach}
+        </div>

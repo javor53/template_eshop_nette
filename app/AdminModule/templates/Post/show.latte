@@ -1,0 +1,67 @@
+﻿{block content}
+
+
+
+{* <div class="date">{$post->created_at|date:'F j, Y'}</div>*}
+{*
+<h1 n:block="title">{$post->title}</h1>
+<h3 n:block="subtitle">{$post->subtitle}</h3>
+
+<div ><p>{php echo $content}</p></div>
+
+<p><b>{$post->author}</b></p>*}
+
+
+
+{*
+<h4>Vložte nový komentář</h4>
+
+{control commentForm}
+
+<h2>Komentáře</h2>  
+
+        <div class="comments">
+            {foreach $comments as $comment}
+                <p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">{$comment->name}</a></b> napsal:</p>
+                <div>{$comment->content}</div>
+            {/foreach}
+        </div>*}
+        
+  
+  
+  <section class="sections block post-show big float-left">  
+      <div class="header"></div>
+    
+        <div class="btns">
+                <a n:href="edit $post->id"  n:if="$user->loggedIn">
+                    <button class="btn btn-add icons"><img src="{$basePath}/assets/images/edit_icon.png"> Upravit příspěvek</button>
+                </a>
+            
+                <a n:href=":Admin:Post:AdminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+        </div>
+      
+        <div class="m-5 font-weight-bold ">
+            <div class="my-2">
+
+            
+            </div>
+
+        </div>
+                    <div class="content">
+                        <div class="row post-img">
+                                <img src="{$basePath}/{$previewImg}">
+                        </div>
+                        <div class="p-5">    
+                            <p class="date float-right">{$post->created_at|date:'%d.%m.%Y'}</p>
+                            <h1 class="ml-2" n:block="title">{$post->title}</h1>
+                            <h3 class="ml-2 mb-2" n:block="subtitle">{$post->subtitle}</h3>
+                            <div class="line-break mt-5">{php echo $content}</div>
+                            <p class="author"><b>{$post->author}</b></p>
+                        </div>
+                    </div>
+        </div>
+
+
+</section>

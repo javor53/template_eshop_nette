@@ -1,0 +1,84 @@
+{block content}
+
+
+<section class="collections medium">
+    <div class="header">Seznam kategorií</div>
+    
+
+        
+        <table class="image-list__table font-14">
+            {foreach $categories as $category}
+                {continueIf $category->id == 1}
+                <tr class="collections__item ">
+                    <td><p class="my-3 ml-3">{$category->title}&nbsp&nbsp</p></td>
+                    <td>
+                    
+                    <a onclick="return confirm('Smazat kategorii?');" n:href="PostCategory:delete $category->id" n:if="$user->loggedIn">
+                        <button class="btn btn-danger user-table__icon float-right"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                    </a>
+                    <a n:href="PostCategory:edit $category->id">
+                    <button class="btn btn-secondary user-table__icon float-right"><img src="{$basePath}/assets/images/edit_icon.png"></button>
+                    </a>
+                    
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+           
+</section> 
+        {include './create.latte'}
+
+
+    <section class="block post-category">
+        <div class="header">Seznam článků</div>
+
+        {snippet sortArticles}
+        
+        <table class="image-list__table font-14">
+            <tr>
+                <th>Název článku</th>
+                <th>Rubrika</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="image-list__sort"><a class="ajax" n:href="sort! 'CATEGORY'"><img src="{$basePath}/assets/images/sort_icon.png"></a></td>
+                <td></td>
+            <tr>
+         <posts n:foreach="$articles as $article">       
+        {*foreach $articles as $article*}
+            <tr class="post-catogory-row">
+                <td class="">{$article->title}</td>
+                <td>
+                    {if $article->post_category_id == NULL}
+                        ---
+                    {else}
+                        {foreach $categories as $category }
+                            
+                                
+                            {if $category->id == $article->post_category_id }
+                                {$category->title}
+                            {/if}
+
+                        {/foreach}
+                    {/if}
+                </td>
+                <td class="w-unset">
+                    
+                    <a onclick="return confirm('Smazat článek?');" n:href="Post:deletePost $article->id" n:if="$user->loggedIn">
+                        <button class="btn btn-danger user-table__icon float-right"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                    </a>
+                    <a  n:href="PostCategory:postCategoryEdit $article->id" n:if="$user->loggedIn">
+                        <button class="btn btn-info  user-table__icon float-right"><img src="{$basePath}/assets/images/sett_icon.png"></button>
+                    </a> 
+                </td>
+            </tr>
+            
+            
+         </posts>   
+        {*/foreach*}
+        </table>
+        {/snippet}
+    </section>
+    
+    

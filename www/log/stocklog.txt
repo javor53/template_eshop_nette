@@ -1,0 +1,10 @@
+6,+1,naskladnění
+9,+3,naskladnění
+9,+3,změna stavu
+6,-2,změna stavu
+2,+2,změna stavu
+5,+2,změna stavu
+6,+5,změna stavu
+9,-8,změna stavu
+2,-1,objednávka: 49
+9,-4,objednávka: 49

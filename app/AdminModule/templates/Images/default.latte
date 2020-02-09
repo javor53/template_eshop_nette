@@ -1,0 +1,102 @@
+﻿{block content}
+{*<div id="content">
+    {snippet a}
+        {$var}
+    {/snippet}
+    <a n:href="change!" class="ajax">Change variable!</a>
+    </div>
+*}
+
+
+<div class="my-5" id="sectionPortfolio">
+    <div class="row mb-3 pb-3 ml-1">
+        <div>
+            <h1 style="font-size: 40px;color:#758573;" class="text-left col-md-12  ">Galerie</h1>        
+        </div>
+        <div>
+            <h1 style="font-size:80px;color:#758573;" class="text-left col-md-12  my-3 ">fotografií</h1>
+        </div>
+    </div>
+    <div class="dividerB mt-3"></div>
+    
+    {snippet itemsContainer}
+    <div class="">
+
+        
+
+        <div style="height: 28px;" class="collections row col-md-auto justify-content-center mt-2 h-auto">
+                <coll n:foreach="$collections as $collection">
+                        {snippet coll-$collection->title}
+                        <a class="colH nounderline mx-5 mb-2 px-2 ajax"  n:href="update! $collection->title" >
+                            <h3 style="font-size: 22px;color:#758573;">{$collection->title}</h3>
+                        </a>&nbsp&nbsp
+                       {* n:href="Homepage:default $collection->title"*}
+                        {/snippet} 
+                       <br>
+
+                </coll>
+            </div><br>
+
+    </div>
+
+    <div class="images row justify-content-center ">
+    
+        <imgs n:foreach="$images as $image">
+            {snippet imgs-$image->id}
+                <div class="col-md-4 text-center thumb"> 
+                
+                    <a class="thumbnail nounderline ajax" href="#" data-image-id="{$image->id}" data-toggle="modal" data-title=""
+                       data-image="{$image->dir . $image->title}"
+                       data-target="#image-gallery">
+                        
+                        <img class="img-thumbnail " style="width:300px;" class="pt-3"
+                             src="{$image->dir . $image->title}"
+                             alt="{$image->collection_id}">
+                        <p style="color: black; " class="text-left bg-white pl-3 pt-2">{$image->collection_id}</p>
+                        
+                    </a>
+                
+                      
+                      
+                   {* <a class="" n:href="Images:show $image->id"><img class="img-thumbnail" src="{$image->dir . $image->title}" alt="{$image->title}"></a>*}
+                   <div style="background-color:#B1C2AE; height:70px;" class="col-12"> 
+                    <a class="float-right mt-2" n:href="Images:delete $image->id" n:if="$user->loggedIn" >
+                        <img style="height: 30px;" src="st_img/icocross.png">
+                        <p style="color:black;">Odstranit</p>
+                    </a>
+                     </div>
+                   {$image->title}
+                   
+                </div>
+            {/snippet}
+            </imgs>
+            
+            
+            
+            <div class="modal fade" id="image-gallery" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="image-gallery-title"></h4>
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="image-gallery-image" class="img-responsive col-md-12" src="">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary float-left" id="show-previous-image"><ion-icon name="arrow-round-back"></ion-icon>
+                        </button>
+
+                        <button type="button" id="show-next-image" class="btn btn-secondary float-right"><ion-icon name="arrow-round-forward"></ion-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+                        
+        </div>
+        {/snippet}
+        </div>
+</div>

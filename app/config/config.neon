@@ -1,0 +1,38 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: *Module\*Presenter
+
+
+session:
+	expiration: 14 days
+
+extensions:
+    #- Contributte\FormMultiplier\DI\MultiplierExtension
+    - WebChemistry\Forms\Controls\DI\MultiplierExtension
+
+services:
+	router: App\RouterFactory::createRouter
+	#ProductManagerModel: App\EshopModule\Model\ProductManagerModel
+	- App\Model\ArticleModel
+	- App\Model\ArticleCategoryModel
+	- App\Model\ImagesModel
+	- App\Model\ImageDescriptionModel
+	- App\Model\PostImagesModel
+	- App\Model\CacheModel
+	- App\Model\CollectionsModel
+	- App\Model\UserManager
+	- App\Model\LoginFailModel
+	- App\Model\EventModel
+	- App\Model\ContentModel
+	- App\Model\SessionModel
+	- App\Forms\SignFormFactory
+	- App\Forms\LoginForm
+	- App\Forms\UserForm
+	- App\Forms\CategoryForm
+	- App\Forms\ImageUploadForm
+	- App\Forms\EventForm
+	- App\Forms\ContentForm

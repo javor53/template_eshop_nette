@@ -1,0 +1,63 @@
+{block content}
+    
+
+<section>
+    ORDER
+    <div class="w-50">
+        <form n:name=orderForm class="form ">
+            
+            <label>Doprava</label>
+            <select n:name=transport class="form-control px-3 py-2 mb-5" ></select>
+            <label>Způsob platby</label>
+            <select n:name=payment class="form-control px-3 py-2 mb-5" ></select>
+            
+            <label>Celé jméno</label>
+            <input n:name=full_name id="" type="text" class="form-control mb-3" required="">
+            <label>E-mail</label>
+            <input n:name=email id="email" type="text" class="form-control mb-3 " required="">
+            <label>Telefonní číslo</label>
+            <input n:name=phone id="phone" type="text" class="form-control  mb-5 " required="">
+            
+            <label>Nákup na firmu</label>
+            <input n:name=isComp type="checkbox" class="mb-3" ><br>
+            <label>Název společnosti</label>
+            <input n:name=comp_name type="text" class="form-control mb-3 " >
+            <label>IČ</label>
+            <input n:name=i_number  type="text" class="form-control mb-3 ">
+            <label>DIČ</label>
+            <input n:name=vat  type="text" class="form-control mb-5 ">
+            
+            <label>Město</label>
+            <input n:name=city type="text" class="form-control mb-3 " required="">
+            <label>Ulice</label>
+            <input n:name=street  type="text" class="form-control mb-3 " required="">
+            <label>Číslo popisné</label>
+            <input n:name=street_number type="text" class="form-control mb-3 " required="">
+            <label>PSČ</label>
+            <input n:name=zip  type="text" class="form-control mb-5 " required="">
+            
+            <label>Doručovací adresa</label>
+            <input n:name=isDelivery type="checkbox" class="mb-3 " ><br>
+            <label>Město</label>
+            <input n:name=d_city type="text" class="form-control mb-3 ">
+            <label>Ulice</label>
+            <input n:name=d_street  type="text" class="form-control mb-3 " >
+            <label>Číslo popisné</label>
+            <input n:name=d_street_number type="text" class="form-control mb-3 " >
+            <label>PSČ</label>
+            <input n:name=d_zip  type="text" class="form-control mb-5 ">
+            
+            <label>Poznámka</label>
+            <input n:name=note  type="text" class="form-control mb-3 ">
+
+            <input n:name=save id="" class="btn btn-primary" value="Odeslat objednávku">
+        </form>
+    </div>
+</section>     
+                
+<footer>
+    <div class="text">
+        <div class="line-bottom">
+        <p>Copyright &copy; Template Nette 2019</p></div>
+    </div>
+</footer>

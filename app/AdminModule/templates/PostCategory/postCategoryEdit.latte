@@ -1,0 +1,27 @@
+{block content}
+<section class="block">
+    <div class="header">Změna rubriky: {$post->title}</div>
+    <div class="btns">
+                <a n:href="PostCategory:adminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+    </div>
+    <div class="fit">
+        <form n:name=postCategoryEditForm class="form ">
+
+            <h1 class="h3 mb-1 font-weight-normal"></h1>
+            <h4 class="text-primary"></h4>
+            <input n:name="id" class="d-none">
+            <div class="input-group">    
+                <select n:name=category  class="form-control px-3 py-2 my-3"  ></select>
+            </div>
+            {*<div class="input-group">    
+              <textarea n:name=description id="" rows="3" class="form-control mt-1 mb-3 " placeholder="Popis" required="" autofocus=""></textarea>
+            </div>*}
+
+
+            <button class="btn btn-lg btn-accept btn-block my-3" n:name=save>Uložit úpravy</button>
+
+        </form>
+    </div>
+</section>

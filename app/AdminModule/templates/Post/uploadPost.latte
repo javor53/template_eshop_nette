@@ -1,0 +1,31 @@
+
+{block content}
+
+{*control imgPostForm*}
+
+<form n:name=imgPostForm class="form mt-3">
+
+      <div class="custom-file">
+        <input n:name=file  class="custom-file-input"  id="inputGroupFile02">
+        <label n:name=file type="file" class="custom-file-label" for="inputGroupFile02" >Vybrat obrazek</label>
+      </div>
+      
+
+      <div class="input-group">    
+        <input n:name=title id="" type="text" class="form-control my-3 " placeholder="Název souboru" required="" autofocus="">
+      </div>
+      
+      
+      <div class="input-group mb-1 mt-3 d-none">
+        <div class="input-group-prepend">
+          <label class="input-group-text " for="inputGroupSelect01">Zvolte článek</label>
+        </div>
+        <select n:name=menu class="custom-select" id="inputGroupSelect01">
+          
+        </select>
+      </div>
+      
+     
+      <button class="btn btn-lg btn-accept btn-block my-3" n:name=Upload id="upload">Nahrát</button>
+
+</form>

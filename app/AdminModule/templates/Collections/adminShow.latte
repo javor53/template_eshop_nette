@@ -1,0 +1,28 @@
+
+﻿{block content}
+<section class="collections">
+    <div class="header">Seznam kategorií</div>
+    <div class="btns">
+        <a n:href="Collections:create" n:if="$user->loggedIn">
+            <button class="btn btn-md btn-add mb-3">
+                Přidat kategorii
+            </button>
+        </a>
+    </div>
+
+ 
+        <table class="image-list__table font-14">
+            {foreach $collections as $collection}
+                <tr class="collections__item ">
+                    <td><p class="my-3 ml-3">{$collection->title}&nbsp&nbsp</p></td>
+                    <td><a n:href="Collections:delete $collection->id" n:if="$user->loggedIn" > 
+                        <button class="btn btn-sm btn-danger float-right">
+                            X
+                        </button>
+                    </a></td>
+                </tr>
+            {/foreach}
+        </table>
+           
+</section>
+

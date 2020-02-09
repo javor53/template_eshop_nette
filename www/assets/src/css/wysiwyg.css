@@ -1,0 +1,279 @@
+body{
+}
+.wysiwyg_iContent{
+    width:100%;
+    background: white;
+}
+.wysiwyg_menu{
+    min-height: 60px;
+    top:0;
+    position: sticky;
+    position: -webkit-sticky; 
+    background-color: #f1f1f1; 
+    text-align: center;
+    z-index: 5;
+}
+.input-item{
+    font-family:'FontAwesome';
+    width:40px;
+    height:40px;
+    padding:0;
+    color:black;
+    border:1px #ced4da solid;
+    font-weight: bold;
+}
+.input-item:active{
+    color:black;
+    background-color: #b4c7ea;
+}
+.input-item:hover{
+    color:black;
+    background-color: #b4c7ea;
+}
+.input-item-image{
+    width:40px;
+    height:40px;
+    padding:0;
+    color:#6c757d;
+    border:1px #ced4da solid;
+    font-weight: bold;
+    width:100px;
+    height:40px;
+    padding:0;
+}
+.input-item-image:active{
+    color:black;
+    background-color: #b4c7ea;
+}
+.input-item-image:hover{
+    color:black;
+    background-color: #b4c7ea;
+}
+
+.droppable{
+    width:100%;
+    min-height:inherit;
+}
+.ui-droppable-active{
+    border:1px #ced4da dashed;
+}
+.ui-droppable-hover{
+}
+
+.move-cursor {
+  cursor: move;
+}
+
+.grab-cursor {
+  cursor: grab;
+  cursor: -webkit-grab;
+}
+
+.boxx {
+  border: 1px black solid;
+  margin: 0 auto;
+  padding: 10px;
+ position:relative;
+}
+
+.img-article {
+  cursor:pointer;
+  display:inline-block;
+  position:relative;
+  float:none;
+
+}
+
+.opac {
+  opacity: 0.8;
+}
+
+.box {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    
+    color: white;
+    justify-content:center;
+    align-items:center;
+
+}
+
+.handle {
+    background-color: #727272;
+
+    cursor: se-resize;
+    position:absolute;
+    right: 0;
+    bottom: 0;
+}
+.context-menu{
+    height:300px;
+    border: 6px transparent solid;
+    position: relative;
+}
+.context-menu.active{
+    border: 6px #b5dcfd dashed;   
+}
+.ui-icon{
+    width: 20px;
+    height:20px;
+    background:white;
+    border:1px solid black;
+}
+
+.drag-icon{
+    display:none;
+    content:"X";
+    position: absolute;
+    left:0;
+    top:0;
+    background:black;
+    color:white;
+}
+
+
+
+
+
+
+#items{
+  font-family:'FontAwesome';
+  list-style:none;
+  margin:0px;
+  margin-top:4px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom:3px;
+  font-size:17px;
+  color: #333333;
+  
+}
+hr { width: 85%; 
+  background-color:#E4E4E4;
+  border-color:#E4E4E4;
+    color:#E4E4E4;
+}
+#cntnr{
+  display:none;
+  position:absolute;
+  border:1px solid #B2B2B2;
+  width:150px;      background:#F9F9F9;
+  box-shadow: 3px 3px 2px #E9E9E9;
+  border-radius:4px;
+}
+
+li{
+  
+  padding: 3px;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+
+#items :hover{
+    fon
+   color: white;
+  background:#284570;
+  border-radius:2px;
+}
+
+.dropbtn {
+    font-family:'FontAwesome';
+    width:40px;
+    height:40px;
+    padding:0;
+    color:black;
+    border:1px #ced4da solid;
+    font-weight: bold;
+}
+
+/* Dropdown button on hover & focus */
+.dropbtn:hover, .dropbtn:focus {
+  color:black;
+    background-color: #b4c7ea;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+    width:100%;
+    background: none;
+    border:none;
+    text-align: left;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {background-color: #ddd}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+.color-picker{
+    top:9px;
+    padding: 5px;
+}
+
+.display-inline{
+display: inline-block;
+}
+.bcPicker-palette{
+    top: 30px !important;
+}
+  
+.resize{
+    position:absolute;
+    border:1px solid #B2B2B2;
+}
+.bottom-right{
+    width:15px;
+    height:15px;
+    background:blue;
+}
+
+.oneline{
+    padding:5px 10px 5px 10px;
+}
+.oneline:hover{
+    color:white;
+}
+.d-none{
+    display:none;
+}
+#stopres{
+    background:#284570;
+}
+#stopres a{
+    color:white;
+}
+#stopres a:hover{
+    color:lightblue;
+}

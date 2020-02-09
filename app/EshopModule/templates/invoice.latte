@@ -1,0 +1,215 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Faktura-{$invoice->number}.pdf</title>
+</head>
+<body>
+    <style>
+        .container {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container .block {
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            float: left;
+            width: 100%;
+            padding-top: 20px;
+        }
+
+        .container .last {
+            border-bottom: 1px solid black;
+            padding-bottom: 40px;
+        }
+
+        .container .block .half-block {
+            width: 43%;
+            float: left;
+            padding: 20px;
+            padding-top: 0;
+        }
+
+        .container .block .full-block {
+            width: 95%;
+            padding: 20px;
+            padding-top: 0;
+            position: relative;
+        }
+
+        h4 {
+            margin: 0;
+            padding: 0;
+        }
+
+        table {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+        }
+
+        .border {
+            border: 1px solid black;
+            padding: 4px;
+        }
+
+        .price-block {
+            float: right;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        .signature {
+            border-top: 1px solid black;
+            text-align: center;
+            width: 70%;
+            margin: 150px auto 0 auto;
+        }
+
+        .invoice-number {
+            text-align: center;
+            font-size: 1.2em;
+            border: 1px solid black;
+            border-bottom: none;
+            padding: 10px;
+            width: 30%;
+            float: right;
+        }
+    </style>
+
+    <div class="container">
+        <div class="invoice-number">
+            <span>Faktura č.: {$invoice->number}</span>
+        </div>
+
+        <div class="block">
+            <div class="half-block left">
+                <h4>Dodavatel:</h4>
+                <table>
+                    <tr><th>{$invoice->supplier->name}</th></tr>
+                    <tr><td>{$invoice->supplier->streetAndNumber}</td></tr>
+                    <tr><td>{$invoice->supplier->zip} {$invoice->supplier->city}</td></tr>
+                    <tr><td>IČ: {$invoice->supplier->in}</td></tr>
+                </table>
+            </div>
+            <div class="half-block right">
+                <h4>Oběratel: </h4>
+                <table>
+                    <tr><th>{$invoice->subscriber->name}</th></tr>
+                    <tr><td>{$invoice->subscriber->streetAndNumber}</td></tr>
+                    <tr><td>{$invoice->subscriber->zip} {$invoice->subscriber->city}</td></tr>
+                    {if $invoice->subscriber->hasCompany}
+                        <tr><td></td></tr>
+                        <tr><th>{$invoice->subscriber->company->name}</th></tr>
+                        <tr><td>IČ: {$invoice->subscriber->company->in}, DIČ: {$invoice->subscriber->company->tin}</td></tr>
+                    {/if}
+                </table>
+            </div>
+            {if $invoice->subscriber->hasCompany}
+                <div class="full-block">
+                    Fyzická osoba zapsána v živnostenském rejstříku
+                </div>
+            {/if}
+        </div>
+
+        <div class="block">
+            <div class="full-block">
+                <h4>Platební podmínky: </h4>
+            </div>
+            <div class="half-block">
+                <table>
+                    <tr>
+                        <td>Forma úhrady: </td>
+                        <td>{$invoice->payment->type}</td>
+                    </tr>
+                    {if $invoice->payment->isAccountTransfer}
+                        <tr>
+                            <td>Název banky: </td>
+                            <td>{$invoice->payment->bank->name}</td>
+                        </tr>
+                        <tr>
+                            <td>Číslo účtu: </td>
+                            <th>{$invoice->payment->bank->accountNumber}</th>
+                        </tr>
+                        <tr>
+                            <td>Variabilní symbol: </td>
+                            <td>{$invoice->number}</td>
+                        </tr>
+                    {/if}
+                </table>
+            </div>
+            <div class="half-block">
+                <table>
+                    <tr>
+                        <td>Datum vystavení: </td>
+                        <td>{$invoice->createdAt}</td>
+                    </tr>
+                    <tr>
+                        <th>Datum splatnosti: </th>
+                        <th><div class="border">{$invoice->dueDate}</div></th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="block">
+            <div class="full-block">
+                <h4>Fakturujeme vám: </h4>
+            </div>
+            <div class="full-block">
+                <table class="border">
+                    <tr>
+                        <th>Produkt</th>
+                        <th>Počet kusů</th>
+                        <th>Cena</th>
+                    </tr>
+                    {foreach $invoice->products as $product}
+                        <tr>
+                            <td>{$product->name}</td>
+                            <td>{$product->count}</td>
+                            <td>{$product->price}</td>
+                        </tr>
+                    {/foreach}
+                </table>
+            </div>
+        </div>
+
+        <div class="block last">
+            <div class="half-block"></div>
+            <div class="half-block">
+                <div class="border price-block">Celkem k úhradě: {$invoice->totalPrice} Kč</div>
+            </div>
+            <div class="full-block">
+
+            </div>
+
+            <div class="half-block">
+                <p><strong>Nejsem plátce DPH</strong></p>
+
+                <br>
+                {if isset($invoice->employee->phone) && $invoice->employee->phone != null }<br>{/if}
+
+                <h4>Vyřizuje: </h4>
+                <table>
+                    <tr><td>{$invoice->employee->name}</td></tr>
+                    {if isset($invoice->employee->phone) && $invoice->employee->phone != null }
+                        <tr><td>Tel.: {$invoice->employee->phone}</td></tr>
+                    {/if}
+                    <tr><td>E-mail: <a href="mailto:{$invoice->employee->email}">{$invoice->employee->email}</a></td></tr>
+                </table>
+            </div>
+            <div class="half-block">
+                <div class="signature">
+                    <span>Razítko a podpis</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

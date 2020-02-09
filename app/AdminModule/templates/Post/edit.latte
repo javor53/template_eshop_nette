@@ -1,0 +1,259 @@
+
+{block content}
+
+
+
+    
+
+
+
+{*                        <div class="container-fluid">                                    
+                            <div class="row articlesrec">*}
+                                
+                                <section class="block image-upload">
+                                    <div class="header">Nahrávání obrázků</div>
+    
+                                    <div class="btns">
+                                        <button class="btn btn-add " data-toggle="collapse" data-target="#media-collapsed">+</button>
+                                    </div>
+
+                                    <div id="media-collapsed" class="collapse">
+                                        <div class="image-upload__form" id="image-upload">
+                                            <form n:name=editImgPostForm class="form mt-3">
+
+                                                <h1 class="h3 mb-5 font-weight-normal">Nahrát obrázek k příspěvku</h1>
+
+                                                <div class="custom-file">
+                                                  <input n:name=file  class="custom-file-input"  id="inputGroupFile02">
+                                                  <label n:name=file type="file" class="custom-file-label" for="inputGroupFile02" >Vybrat obrazek</label>
+                                                </div>
+
+
+                                                <div class="input-group">    
+                                                  <input n:name=title id="" type="text" class="form-control my-3 " placeholder="Název souboru" required="" autofocus="">
+                                                </div>
+
+
+                                                <div class="input-group mb-1 mt-3 d-none">
+                                                  <div class="input-group-prepend">
+                                                    <label class="input-group-text " for="inputGroupSelect01">Zvolte článek</label>
+                                                  </div>
+                                                  <select n:name=menu class="custom-select" id="inputGroupSelect01">
+
+                                                  </select>
+                                                </div>
+
+
+                                                <button class="btn btn-lg btn-accept btn-block my-3" n:name=Upload id="upload">Nahrát</button>
+
+                                          </form>
+                                        </div>
+                                    </div>
+                                </section>
+                                <section class="block media-list">
+                                    {*<div class="newImages ml-5 my-3 ">     
+                                        {foreach $newImages as $newImage}
+                                            <div class="row">
+                                                <div id="draggable" class="draggable ui-draggable ui-draggable-handle" value="{$newImage->dir . $newImage->title}">
+                                                    {$newImage->id . ".   " . $newImage->dir . $newImage->title . "(nový)"}
+                                                </div>
+                                                <a class="text-danger ml-5" onclick="return confirm('Smazat obrázek?');" n:href=":Admin:Post:deleteImg $newImage->id " n:if="$user->loggedIn" >
+                                                            <span class="">X</span>
+                                                </a>
+                                            </div>
+                                        {/foreach}
+                                    </div>*}
+                                    <div class="header">Seznam obrázků ke článku</div>
+                                    <div class="fit">
+                                                {foreach $imgsPost as $newImage}
+                                                     <div class="draggable ui-draggable ui-draggable-handle media-list item row "  id="draggable" value="{$newImage->dir . $newImage->title}">
+
+                                                            <img class="media-list__imag" src="../../{$newImage->dir . $newImage->title }" id="{$newImage->id}"  alt="" ></td>
+
+
+                                                                <div class="pt-2 pl-3">
+                                                                    <p>{$newImage->id}.
+                                                                    {$newImage->title}</p>
+
+                                                                </div>
+
+
+
+                                                                    <a  onclick="return confirm('Smazat obrázek?');" n:href=":Admin:Post:deleteImg $newImage->id, $post" n:if="$user->loggedIn">
+                                                                        <button class="btn btn-danger icons ml-5 mt-2"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                                                                    </a>
+
+
+                                                     </div>
+                                                 {/foreach}
+                                    </div>               
+                                </section>    
+
+
+                                    {*
+                                    <section class="block big"
+                                            <div class="content p-3">
+                                                {*include "uploadPost.latte"*}{*
+                                                <a n:href=":Admin:Post:uploadPost"><button class="btn btn-lg btn-secondary px-5 ml-5 my-3" >Nahrát obrázek</button></a>
+                                                
+                                                <div class="actualImages ml-5 my-3">
+                                                        {foreach $imgsPost as $imgPost}
+                                                            <div class="row">
+                                                                <div>{$imgPost->id . ".   " . $imgPost->dir . $imgPost->title}</div>
+                                                                <a class="text-danger ml-5" onclick="return confirm('Smazat obrázek?');" n:href=":Admin:Post:deleteImg $imgPost->id, $post" n:if="$user->loggedIn" >
+                                                                    <span class="">X</span>
+                                                                </a>
+                                                            </div>
+                                                        {/foreach}
+                                                </div>*}
+                                                    {*control postForm*}
+                                                    {*
+                                                    <div class=" mt-5">
+                                                        <button class="btn btn-sm btn-primary ml-5 " data-toggle="collapse" data-target="#demo">Všechny nahrané obrázky</button>
+                                                        <div id="demo" class="collapse">
+                                                            <div class="allImages ml-5 my-3">
+                                                                {foreach $allImages as $allImage}
+                                                                    
+                                                                    <div>{$allImage->id . ".   " . $allImage->dir . $allImage->title}</div>
+                                                                {/foreach}
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="text-danger mt-3">
+                                                           <p>Pro vložení obrázku do článku:<br> 
+                                                           &ltimg class="img-article col-12" src="&#123$basePath&#125cesta/k/obrazku/ukazka.jpg" alt="img"&gt<br>
+                                                           Práce s textem:<br> 
+                                                           &ltbr&gt - odřádkování<br>
+                                                           &lti&gt&lt/i&gt - kurzíva<br>
+                                                           &ltb&gt&lt/b&gt - tučně
+                                                           </p>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <form n:name=postForm class="form mt-3 mx-5">
+
+                                                            <h1 class="h3 mb-1 font-weight-normal">Nahrát článek</h1>
+
+                                                            <div class="input-group">    
+                                                              <input n:name=title id="" type="text" class="form-control mt-3" placeholder="Nadpis" required="" autofocus="">
+                                                            </div>
+                                                            <div class="input-group">    
+                                                              <input n:name=subtitle id="" type="text" class="form-control mt-1 mb-3 " placeholder="Podnadpis" required="" autofocus="">
+                                                            </div>
+                                                            
+                                                            <
+                                                            
+                                                            <div class="input-group">
+                                                                <textarea n:name=content id="textContent" rows="25" class="form-control d-none my-1"  autofocus=""></textarea>
+                                                                <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                                                                        src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg my-1">
+
+
+                                                                </iframe> 
+
+                                                            </div>
+                                                            
+                                                            <div class="input-group col-6">    
+                                                              <input n:name=author id="" type="text" class="form-control my-3 " placeholder="Autor článku" required="" autofocus="">
+                                                            </div>
+                                                            
+                                                            <div class="input-group mb-1 mt-3">
+                                                              <div class="input-group-prepend">
+                                                                <label class="input-group-text " for="inputGroupSelect01">Zvolte úvodní obrázek</label>
+                                                              </div>
+                                                              <select n:name=preview_img_id class="custom-select" id="inputGroupSelect01">
+
+                                                              </select>
+                                                            </div>
+                                                            
+
+
+                                                            <button class="btn btn-lg btn-primary btn-block my-3" n:name=send>Uložit a publikovat</button>
+
+                                                      </form>
+                                                </section>                      
+                                            </div>
+                                    </div>
+                                </div>
+                               
+                            
+                            </div>
+                        </div>
+                    </section>*}
+                    
+    <section class="block blog-upload">
+        <div class="header">Úprava příspěvku</div>
+    
+        <div class="btns">
+                <a n:href=":Admin:Post:AdminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+        </div>
+                
+        <div class="blog-upload__menu">
+
+        </div>
+        <div class="blog-upload__form">
+            <form n:name=postForm class="form">
+
+                    <div class="input-group mb-1 mt-3">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text " for="inputGroupSelect01">Zvolte úvodní obrázek</label>
+                      </div>
+                      <select n:name=preview_img_id class="custom-select" id="inputGroupSelect01">
+
+                      </select>
+                    </div>
+                
+                
+                    <div class="input-group mb-1 mt-3">
+                        <div class="input-group-prepend">
+                          <label class="input-group-text " for="inputGroupSelect01">Zvolte kategorii</label>
+                        </div>
+                        <select n:name=post_category_id class="custom-select" id="inputGroupSelect01">
+
+                        </select>
+                      </div>
+
+                    <div class="input-group">    
+                      <input n:name=title id="" type="text" class="form-control mt-3" placeholder="Nadpis" required="" autofocus="">
+                    </div>
+                    <div class="input-group">    
+                       <textarea n:name=subtitle id="" type="text" rows="3" class="form-control mt-1 mb-3 " placeholder="Podnadpis" maxlength="220" required="" autofocus=""></textarea>
+                    </div>
+
+                    <div class="">
+
+
+                        <textarea n:name=content id="textContent" rows="25" class="form-control d-none my-1"  autofocus=""></textarea>
+                        <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                                src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg wysiwyg-900 form-control bg-white pt-2 my-1">
+
+
+                        </iframe> 
+
+                    </div>
+                                         
+                                
+                                
+                                
+                    <div class="input-group col-6">    
+                      <input n:name=author id="" type="text" class="form-control my-1 " placeholder="Autor článku" required="" autofocus="">
+                    </div>
+
+
+
+
+
+                    <button class="btn btn-lg btn-accept btn-block my-1 mb-5" onclick="LoadContent();" n:name=send>Uložit úpravy</button>
+
+            </form>
+        </div>
+
+</section>
+
+   
+
+                            
+
+                            

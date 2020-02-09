@@ -1,0 +1,79 @@
+
+{block content}
+
+{*control imgForm*}
+<section class="upload-form b-fit">
+    <div class="header">Nahrát obrázek</div>
+    
+<form n:name=imgForm class="form m-3">
+
+      <div class="custom-file">
+        <input n:name=file type="file"  class="custom-file-input" id="inputGroupFile02">
+        <label n:name=file type="file" class="custom-file-label" for="inputGroupFile02" >...</label>
+      </div>
+
+          
+      <label n:name=title class="sr-only">Název</label>
+      <input n:name=title id="" class="form-control my-3 " placeholder="Název souboru" required="" autofocus="">
+      
+      <label n:name=menu class="m-1 label-strong">Zvolte kategorii:</label>
+      <select n:name=menu class="form-control px-3 py-2 mb-5"  id="sel1">
+
+      </select>
+      
+      {*
+      <label n:name=descTitle class="sr-only">Nadpis</label>
+      <input n:name=descTitle id="inputEmail" class="form-control my-3 " placeholder="Nadpis" required="" autofocus="">
+      
+      <label n:name=description class="sr-only">Text</label>
+      <textarea n:name=description id="inputPassword" style="width: 100%; height: 200px;" class="form-control my-3" placeholder="Text" required=""></textarea>*}
+      
+      
+      {*<div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>*}
+      <button class="btn btn-lg btn-accept btn-block my-3 mb-5" n:name=Upload>Nahrát</button>
+
+</form>
+</section> 
+<section class="image-list big">
+        <div class="header">Seznam obrázků</div>
+        
+        {snippet sortImages}
+
+            <table class="image-list__table">
+                
+                <tr class="font-weight-bold">
+                    <td><p>Náhled</p></td>
+                    <td><p>Název obrázku</p></td>
+                    <td><p>Kategorie</p></td>     
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="image-list__sort"><a class=" ajax" n:href="sort! 'ALPHABETICAL'"><img src="{$basePath}/assets/images/sort_icon.png"></a></td>
+                    <td class="image-list__sort"><a class="ajax" n:href="sort! 'COLLECTION'"><img src="{$basePath}/assets/images/sort_icon.png"></a></td>   
+                </tr>
+                
+                <imgs n:foreach="$images as $image">
+                        <tr class="image-list__item">
+                            <td><img class="image-list__image" src="../../{$image->dir . $image->title . $image->suffix}"  alt="" ></td>
+                            <td><p class="image-list__title">{$image->title}</p></td>
+
+                            {foreach $collections as $collection}
+                                {if $image->collection_id == $collection->id}
+                               <td> <p class="image-list__title font-weight-bold">{$collection->title}</p></td>
+                                {/if}
+                            {/foreach}
+
+                            <td><a n:href="Images:delete $image->id" n:if="$user->loggedIn" > 
+                                <button class="btn btn-sm btn-danger float-right">
+                                    X
+                                </button>
+                                </a></td>
+                        </tr>
+                </imgs> 
+            </table>
+        {/snippet}
+</section>

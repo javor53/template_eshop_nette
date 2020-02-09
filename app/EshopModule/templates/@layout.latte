@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+    {* Admin Module *} 
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+        <link rel="icon" href="{$basePath}/assets/images/logo.jpg">
+        
+        <link href="{$basePath}/assets/vendor/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        {*<link href="{$basePath}/assets/src/css/adminstyles.css" rel="stylesheet">*}
+        <link href="{$basePath}/assets/src/css/eshopstyles_extension.css" rel="stylesheet">
+         <link href="{$basePath}/assets/src/css/wysiwyg.css" rel="stylesheet">
+        
+        
+        <link rel="stylesheet" href="{$basePath}/assets/vendor/aosAnim/dist/aos.css">
+        <link rel="stylesheet" type="text/css" href="{$basePath}/assets/vendor/cookieConsent/cookieconsent.min.css" />
+        <link rel="stylesheet" href="{$basePath}/assets/vendor/fancybox/jquery.fancybox.min.css" media="screen">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{$basePath}/assets/vendor/richtext/richtext.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        
+	<title>{ifset title}{include title|stripHtml} | {/ifset}Template Nette</title>
+</head>
+
+<body>
+        <div class="flash-messages sticky">
+	<nav class="navbar navbar-dark  bg-dark flex-md-nowrap ml-auto col-12 p-0 shadow">
+
+
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"></a>
+            <div class="navbar-brand col-centered">
+              <div n:foreach="$flashes as $flash" n:class="flash, 'type-' . $flash->type">{$flash->message}</div>
+            </div>
+
+            <ul class="navbar-nav col-1 px-3 d-inline">
+                {if $user->loggedIn}
+                <li class="nav-item text-nowrap">
+                  <a class="nav-link active" n:href=":Admin:Sign:out">Odhlásit</a>
+               </li>
+               {/if}
+            </ul>
+        </nav>
+        </div>
+        
+        <div class="row">
+            <div class="nav-side-menu col-md-4 col-xs-12 pr-0">
+                <div class="brand" id="top">Template Nette</div>
+                <div class="nav-side-menu__small">
+                    <i class="fa fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content">
+                        <img class="menu-icon" src="{$basePath}/assets/images/menu_icon.png">
+                    </i>
+                </div>
+                    <div class="menu-list">
+                        {if $user->loggedIn}
+                                <ul>
+
+                                    <li class="collapsed font-weight-bold">
+                                      <a n:href=":Admin:Homepage:default"><i class="fa  fa-lg"></i>Blog Modul</a>
+                                    </li>
+                                    
+                                    <li class="collapsed font-weight-bold active">
+                                      <a n:href=":Eshop:Homepage:default"><i class="fa  fa-lg"></i>Eshop Modul</a>
+                                    </li>
+                                    
+                                 </ul>
+                            
+                             {if $admin->role == 'supervisor'}
+                                <ul id="menu-content" class="menu-content collapse out" n:inner-foreach="$menuItems as $item => $link">
+
+                                    <li  data-toggle="collapse" data-target="#{$item}" class="collapsed">
+                                      <a href="#{$item}#top"><i class="fa  fa-lg"></i>{$item} <span class="arrow"></span></a>
+                                    </li>
+
+
+                                        <ul class="sub-menu collapse" id="{$item}" n:inner-foreach="$link as $sublink => $subvalue">
+                                           <li><a  n:href="{$subvalue}">{$sublink}</a></li>
+
+                                       </ul>
+
+                                </ul>
+                                <ul id="menu-content" class="menu-content collapse out">
+                                    <li><a n:href=":Admin:Sign:out" class="text-light bg-dark pl-3">Odhlásit</a></li>
+                                    <li class="pl-3 ">Přihlášený jako: {$admin->username}</li>
+                                </ul>
+                                {elseif $admin->role == 'journalist'}
+                                    <ul id="menu-content" class="menu-content collapse out" n:inner-foreach="$menuItemsJournalist as $item => $link">
+
+                                        <li  data-toggle="collapse" data-target="#{$item}" class="collapsed">
+                                          <a href="#{$item}"><i class="fa  fa-lg"></i>{$item}<span class="arrow"></span></a>
+                                        </li>
+
+
+                                        <ul class="sub-menu collapse" id="{$item}" n:inner-foreach="$link as $sublink => $subvalue">
+                                           <li><a n:href="{$subvalue}">{$sublink}</a></li>
+
+                                        </ul>
+
+                                    </ul>
+                                    <ul id="menu-content" class="menu-content collapse out">
+                                        <li><a n:href=":Admin:Sign:out" class="text-light bg-dark">Odhlásit</a></li>
+                                        <li>Přihlášený jako: {$admin->username}</li>
+                                    </ul> 
+                                {/if}
+                        {else}
+                            <ul id="menu-content" class="menu-content collapse out">
+                                <li><a n:href=":Admin:Sign:in" class="text-light bg-dark">Přihlásit</a></li>
+                            </ul>
+                        {/if}           
+                 </div>
+            </div>
+                 
+            <main class="sections col-md-10 col-xs-12 row">    
+                {include content}
+                
+            
+	{block scripts}
+
+        <script src="{$basePath}/assets/vendor/js/jquery-1.12.4.js"></script> 
+	<script src="{$basePath}/assets/vendor/js/netteForms.min.js"></script>       
+        <script src="{$basePath}/assets/vendor/js/bootstrap.min.js"></script>
+        <script src="{$basePath}/assets/vendor/js/nette.ajax.js"></script>
+        <script src="{$basePath}/assets/vendor/js/jquery-ui.js"></script>
+        
+        <script>
+            $(function () {
+                    $.nette.init();
+            });
+        </script>
+        <script>
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+          }    
+            
+        </script>
+        <script>//custom-file-input FIX(show path)
+            $('.custom-file-input').on('change', function() { 
+                let fileName = $(this).val().split('\\').pop(); 
+                $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+             });           
+        </script>
+        <script type="text/javascript" src="{$basePath}/assets/vendor/js/jquery-ui-droppable-iframe.js"></script>
+
+        <script type="text/javascript" src="{$basePath}/assets/src/js/wysiwyg_load.js"></script>
+        <script type="text/javascript" src="{$basePath}/assets/vendor/richtext/jquery.richtext.js"></script>
+        <script>
+         var imgId = "";   
+        //drag (image,..) into iframe, when not droppable snape to original position.
+        $(function() {
+                    
+                    //After frame loaded
+                    $("#wysiwygTextField").attr('src','{$basePath|noescape}/assets/iframes/iframeTextField.html').load(function() {
+                        setTextToIframe();
+                        //Activate droppable zones
+                        
+                        $(this).contents().find('.droppable').droppable({
+                            drop: function(event, ui) {
+                                //ACTION ON DROP HERE
+                                //Get value of image element
+                                var tempid = $(ui.draggable[0]);
+                                var value = tempid.attr("value");
+                                //Create <img> element
+                                var newDiv =  doc.createElement("div");
+                                $(newDiv).addClass("context-menu");
+                                //$(newDiv).attr('contenteditable',false);
+                                $(newDiv).attr('id',imgId);
+                                
+                                var newImage = doc.createElement("img");
+                                newImage.src = "{$basePath|noescape}/" + value;
+                                $(newImage).addClass("img-article");
+                                //$(newImage).attr('contenteditable',false);
+                                $(newImage).addClass("context-menu resizeing");
+                                
+                                 $(newImage).attr('id',imgId);
+                                console.log(imgId);
+                                
+                                var newLine =  doc.createElement("br");
+                                
+                                
+                                //Put element into iframe
+                                //$(newDiv).append(newImage);
+                                
+                                document.getElementById('wysiwygTextField').contentWindow.document.getElementById("droppable").appendChild(newImage);
+                                document.getElementById('wysiwygTextField').contentWindow.document.getElementById("droppable").appendChild(newLine);
+                                reload_js();
+                                imgId = "";
+    
+                                ui.draggable.css({ // Set original position of draggable
+                                    'left': $("#draggable").data('originalLeft'),
+                                    'top': $("#draggable").data('origionalTop')
+                                });
+                                //delete element after drop
+                               // ui.draggable.remove();
+                                //ui.draggable({ disabled: true });  
+                            }
+
+                        });
+                    });
+                    //Activate draggable zones
+                    $('.draggable').draggable({
+                        revert:"invalid",    //Returns to original position when not dropped
+                        iframeFix: true,    //Core jquery ui params needs for fix iframe bug
+                        iframeScroll: true  //This param needs for activate iframeScroll
+
+                    });
+                    $('.draggable').data({ //Original positions data
+                        'originalLeft': $("#draggable").css('left'),
+                        'origionalTop': $("#draggable").css('top')
+                    });
+
+                    
+                    $('.draggable').mousedown(function(event){
+                        imgId = $(event.target).attr('id');                          
+                        if(ImgIdExists(imgId)){
+                             imgId = imgId + "_" + imgCount(imgId); 
+                        }        
+    
+                    });
+                    
+                });
+           function ImgIdExists(imgId){
+                var iframe = document.getElementById('wysiwygTextField');
+                if($('#wysiwygTextField').contents().find('#' + imgId)){
+                        return true;
+                }else{
+                        return false;
+                }
+           }
+           
+           function imgCount(imgId){
+               var iframe = document.getElementById('wysiwygTextField');
+                return $('#wysiwygTextField').contents().find("img[id^=" + imgId + "]").length;
+           }
+            
+           function reload_js(){
+                var head = $('#wysiwygTextField').contents().find('head')[0];
+                var script= document.createElement('script');
+                script.src= '../src/js/wysiwyg.js';
+                 $('#wysiwygTextField').contents().find('script[src="../src/js/wysiwyg.js"]').remove();
+                document.getElementById('wysiwygTextField').contentWindow.document.head.appendChild(script);
+    
+            }
+                
+            function setTextToIframe(){
+                var $iframe = $('#wysiwygTextField');
+                var content = $("#textContent").val();
+                var height = $iframe.css('min-height').replace(/[^-\d\.]/g, '');
+                $iframe.ready(function() {
+                    $iframe.contents().find(".droppable").html(content);
+                    $iframe.contents().find(".wysiwyg_iContent").css('min-height',(height - 80) + 'px' );
+                });
+                reload_js();
+            }  
+                
+                        
+                
+                                
+                
+        </script>
+        <script>
+            $('#myModal').on('shown.bs.modal', function () {
+                $('#myInput').trigger('focus');
+              });
+        </script>
+        
+        
+        <script src="{$basePath}/assets/js/uikit.js"></script>
+        <script>
+            const BASE_PATH = {$basePath};
+         </script>
+        
+        <script src="{$basePath}/assets/js/global.js"></script>
+        
+	{/block}
+</body>
+</html>

@@ -1,0 +1,30 @@
+
+{block content}
+
+{*control collectionForm*}
+<section class="block upload-form">
+    <div class="header">Vytvořit kategorii</div>
+    <div class="btns">
+                <a n:href=":Admin:Collections:AdminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+    </div>
+    
+    <div class="fit">
+    
+        <form n:name=collectionForm class="form ">
+
+            <div class="input-group">    
+              <input n:name=title id="" type="text" class="form-control mt-3" placeholder="Název" required="" autofocus="">
+            </div>
+            <div class="input-group">    
+              <textarea n:name=content id="" rows="3" class="form-control mt-1 mb-3 " placeholder="Popis" required="" autofocus=""></textarea>
+            </div>
+
+
+            <button class="btn btn-lg btn-accept btn-block my-3" n:name=send>Vytvořit</button>
+
+        </form>
+    </div>    
+        
+</section>

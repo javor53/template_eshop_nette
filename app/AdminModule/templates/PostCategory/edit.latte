@@ -1,0 +1,26 @@
+{block content}
+
+<section class="upload-form block">
+    <div class="header">Upravit název rubriky</div>
+    <div class="btns">
+                <a n:href="PostCategory:adminShow" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                </a>            
+    </div>
+    <div class="fit">
+    
+        <form n:name=editCategoryForm class="form ">
+            <input n:name="id" class="d-none">
+            <div class="input-group">    
+              <input n:name=title id="" type="text" class="form-control mt-3" placeholder="Název" required="" autofocus="">
+            </div>
+            {*<div class="input-group">    
+              <textarea n:name=description id="" rows="3" class="form-control mt-1 mb-3 " placeholder="Popis" required="" autofocus=""></textarea>
+            </div>*}
+
+
+            <button class="btn btn-lg btn-accept btn-block my-3" n:name=save>Uložit úpravy</button>
+
+        </form>
+    </div>
+</section>

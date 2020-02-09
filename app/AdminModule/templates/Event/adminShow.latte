@@ -1,0 +1,49 @@
+{block content}
+<section class="block events">
+        <div class="header">Seznam událostí</div>
+        <div class="fit">
+        <table>
+            <tr>
+                <th>Název</th>
+                <th class="d-none-sm">Datum</th>
+                <th class="d-none-sm">Místo</th>
+                <th class="desc">Popis</th>
+                <th class="d-none-sm">Úvodní obrázek</th>
+            </tr>
+        {foreach $events as $event}
+            <tr class="">
+                <td class="">{$event->title}</td>
+                <td class="d-none-sm">{$event->date}</td>
+                <td class="d-none-sm">{$event->place}</td>
+                <td class="desc">{php echo $event->description}</td>
+                <td class="d-none-sm">
+                    {foreach $images as $image }
+                            
+                                
+                            {if $image->id == $event->image_id }
+                                <img src="../../{$image->dir . $image->title . $image->suffix}">
+                            {/if}
+
+                    {/foreach}
+                </td>
+                <td class="icons">
+                    
+                    <a onclick="return confirm('Smazat událost?');" n:href="Event:delete $event->id" n:if="$user->loggedIn">
+                        <button class="btn btn-danger icons float-right"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                    </a>
+                    <a n:href="Event:edit $event->id">
+                    <button class="btn btn-secondary icons float-right"><img src="{$basePath}/assets/images/edit_icon.png"></button>
+                    </a>
+                  
+                    
+                    </td>
+                    <td class="detail">
+                       <a n:href="Event:detail $event->id">
+                        <button class="btn btn-info icon "><img src="{$basePath}/assets/images/search_icon.png"></button>
+                       </a>
+                    </td>
+            </tr>
+        {/foreach}
+        </table>
+        </div>
+    </section>

@@ -1,0 +1,25 @@
+
+{block content}
+<section class="block big">
+    <div class="header">Zákazníci</div>
+    <div class="btns">
+        
+    </div>
+    <table class="image-list__table font-14">
+        <tr>
+            <th class="d-none-sm">ID</th>
+            <th class="">Jméno a příjmení</th>
+            <th>E-mail</th>
+            <th>Telefonní číslo</th>
+        </tr>
+    {foreach $customers as $customer}
+        <tr class="post-catogory-row">
+            <td class="">{$customer->id}</td>
+            <td class="">{$customer->full_name}</td>
+            <td class="">{$customer->email}</td>
+            <td class="">{$customer->phone}</td>
+
+        </tr>
+    {/foreach}
+    </table>
+</section>

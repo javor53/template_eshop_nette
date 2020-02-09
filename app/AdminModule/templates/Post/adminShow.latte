@@ -1,0 +1,140 @@
+{block content}
+<section class="block big">
+   <div class="header">Seznam článků</div>
+   
+   <div class="pagination btns w-100">
+        {if !$paginator->isFirst()}
+            <a n:href="Post:adminShow 1"><div class="btn btn-add "><<</div></a>
+
+            <a n:href="Post:adminShow $paginator->page-1"><div class="btn btn-add ml-1"><</div></a>
+
+        {/if}
+
+        <div class="btn btn-add">Stránka {$paginator->page} z {$paginator->pageCount}</div>
+
+        {if !$paginator->isLast()}
+
+            <a n:href="Post:adminShow $paginator->page+1"><div class="btn btn-add">></div></a>
+
+            <a n:href="Post:adminShow $paginator->pageCount"><div class="btn btn-add ml-1">>></div></a>
+        {/if}
+        
+        
+    </div>
+
+
+    
+    <div class="posts">
+        {foreach $posts as $s }
+         <section class="block show-articles">  
+            <a href="{link :Admin:Post:show $s->id}">
+                <div class="header row">
+                    <div class="col-8">{$s->title}</div>
+                    <div class="date col-4 text-right p-0 font-weight-normal">{$s->created_at|date:'j. n. Y'}</div>
+                </div>
+            </a>
+             
+            {*<input type=checkbox  value={$s->id}>
+            <p>Zvolit jako hlavní {$s->title}</p>*}
+            
+                <div class="content row article">
+
+                    <div class="col-0 col-sm-3 article-image">
+                        {foreach $previewImgs as $img }
+                            
+                            {if $s->preview_img_id == $img->id }
+                                <img  class="img-thumbnail" src="../../{$img->dir . $img->title}">
+                            {elseif $s->preview_img_id == NULL}
+                                {first}<img class="img-thumbnail" src="../../{$placeholder}">{/first}
+                            {/if}
+
+                        {/foreach}
+                        {if $previewImgs == NULL}
+                            <img class="img-thumbnail" src="../../{$placeholder}">
+                        {/if}
+                        
+                    </div>
+                    
+                    <div class="col-8 col-sm-6 pl-4 mt-3">
+                            {if $publicated == NULL}
+                                <p><a class="text-success" n:if="$user->loggedIn" n:href=":Admin:Post:publicate $s->id">
+                                    <button type="button" class="btn btn-success font-14 rounded-0 ">Publikovat příspěvek</button>
+                                </a></p>
+                            {else}    
+                                {foreach $publicated as $public }
+
+                                    {if $s->id == $public->post_id }
+
+                                        <p><a class="text-danger" n:if="$user->loggedIn" n:href=":Admin:Post:deletePublicated $s->id">
+                                                <button type="button" class="btn btn-secondary font-14 rounded-0">Skrýt publikovaný příspěvek</button>
+                                            </a></p>
+                                        {breakIf true}
+                                    {else}
+                                        {last}<p><a class="text-success" n:if="$user->loggedIn" n:href=":Admin:Post:publicate $s->id">
+                                                    <button type="button" class="btn btn-success font-14 rounded-0">Publikovat příspěvek</button>
+                                                </a></p>{/last}                             
+                                    {/if}
+                                {/foreach}        
+                            {/if}
+                            
+                            {if $recommended == NULL}
+                                <p><a class="text-success" n:if="$user->loggedIn" n:href=":Admin:Post:setRecommended $s->id">
+                                                    <button type="button" class="btn  btn-accept font-14  rounded-0">Přidat mezi doporučené</button>
+                                                </a></p>
+                            {else}    
+                                {foreach $recommended as $recommend }
+
+                                    {if $s->id == $recommend->post_id }
+
+                                        <p><a class="text-danger" n:if="$user->loggedIn" n:href=":Admin:Post:deleteRecommended $s->id">
+                                                <button type="button" class="btn btn-secondary font-14 rounded-0">Odebrat z doporučených</button>
+                                            </a></p>
+                                        {breakIf true}
+                                    {else}
+                                        {last}<p><a class="text-success" n:if="$user->loggedIn" n:href=":Admin:Post:setRecommended $s->id">
+                                                    <button type="button" class="btn btn-accept font-14 rounded-0">Přidat mezi doporučené</button>
+                                                </a></p>{/last}                             
+                                    {/if}
+                                {/foreach}        
+                            {/if}                                   
+                    </div>
+                    <div class="col-4 col-sm-3 font-weight-bold mt-3">
+                        <a class="text-light" n:if="$user->loggedIn" n:href=":Admin:Post:edit $s->id">
+                                <button type="button" class="btn btn-info icons float-left mx-2 "><img src="{$basePath}/assets/images/edit_icon.png"></button>
+                            </a>
+                              
+                        <a class="text-danger" onclick="return confirm('Opravdu chcete smazat celý příspěvek včetně fotografií a komentářů?');"
+                           n:href=":Admin:Post:deletePost $s->id" n:if="$user->loggedIn" >
+                            <button type="button" class="btn btn-danger icons float-left mx-2"><img src="{$basePath}/assets/images/del_icon.png"></button>
+                        </a>
+       
+                    </div>
+                    
+
+                        {*{input checkbox:$s->id}*}
+                </div>
+         
+           </section>
+        {/foreach}
+    </div>
+    {*
+    <div class="pagination w-100 m-3">
+        {if !$paginator->isFirst()}
+            <a n:href="Post:adminShow 1">První</a>
+            &nbsp;|&nbsp;
+            <a n:href="Post:adminShow $paginator->page-1">Předchozí</a>
+            &nbsp;|&nbsp;
+        {/if}
+
+        Stránka {$paginator->page} z {$paginator->pageCount}
+
+        {if !$paginator->isLast()}
+            &nbsp;|&nbsp;
+            <a n:href="Post:adminShow $paginator->page+1">Další</a>
+            &nbsp;|&nbsp;
+            <a n:href="Post:adminShow $paginator->pageCount">Poslední</a>
+        {/if}
+        
+        
+    </div>*}
+</section>

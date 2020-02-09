@@ -1,0 +1,49 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	mapping:
+		*: *Module\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+
+services:
+    - App\EshopModule\Model\ProductModels\ProductInfoModel 
+    - App\EshopModule\Model\ProductModels\ProductImagesModel  
+    ProductManagerModel: 
+        class: App\EshopModule\Model\ProductManagerModel (@database.eshopdb.context)	
+        autowired: true
+    ProductCategoryModel: 
+        class: App\EshopModule\Model\ProductModels\ProductCategoryModel (@database.eshopdb.context)	
+        autowired: true
+    CustomerModel: 
+        class: App\EshopModule\Model\CustomerModel (@database.eshopdb.context)	
+        autowired: true
+    OrderManagerModel: 
+        class: App\EshopModule\Model\OrderManagerModel (@database.eshopdb.context)	
+        autowired: true
+    AddressModel: 
+        class: App\EshopModule\Model\AddressModel (@database.eshopdb.context)	
+        autowired: true
+    InvoiceModel: 
+        class: App\EshopModule\Model\InvoiceModel (@database.eshopdb.context)	
+        autowired: true
+    OrderEmailModel: 
+        class: App\EshopModule\Model\OrderEmailModel (@database.eshopdb.context)	
+        autowired: true
+    Mailer: 
+        class: App\EshopModule\Components\Mail\Mailer (@database.eshopdb.context)	
+        autowired: true
+    - App\EshopModule\Model\ItemModel
+    - App\EshopModule\Model\CartModel
+    - App\EshopModule\Model\ShippingInfoModel
+    - App\EshopModule\Components\Forms\ImageUploadForm
+    - App\EshopModule\Components\Forms\ProductForm
+    - App\EshopModule\Components\Forms\OrderForm
+    - App\EshopModule\Components\Forms\OrderStatusForm
+    - App\EshopModule\Components\Forms\InvoiceSettingsForm       

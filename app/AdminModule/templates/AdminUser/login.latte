@@ -1,0 +1,82 @@
+{block content}
+<section class="block">
+    
+   
+    
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid">
+            <div class="uk-width-1-1">
+                <br>
+                <h1 class="uk-text-center">LUXORI</h1>
+            </div>
+
+            <div class="uk-width-1-1">
+                <h2 class="uk-text-center">Přihlášení do administrace</h2>
+                <br>
+            </div>
+
+            <div class="uk-width-1-1">
+                <div class="uk-flex uk-flex-center">
+                    <div class="uk-width-large-1-3 uk-width-medium-4-5 uk-width-small-1-1">
+                        {if $enableLogin}
+                            <form n:name="loginForm" class="uk-form">
+
+                                <div n:if="$form->hasErrors()" n:foreach="$form->errors as $error" class="uk-alert uk-alert-danger">
+                                    <p>{$error}</p>
+                                </div>
+
+                                <div class="uk-form-row">
+                                    <div class="uk-form-controls">
+                                        <input n:name="username" class="uk-width-1-1 uk-form-large" placeholder="Přihlašovací jméno / e-mail">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <div class="uk-form-controls">
+                                        <input n:name="password" class="uk-width-1-1 uk-form-large" placeholder="Heslo">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <div class="uk-form-controls">
+                                        <button class="uk-button uk-button-success uk-button-large uk-width-1-1" n:name="logIn">Přihlásit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        {else}
+                            <h3 class="uk-text-center">
+                                Přihlášení zablokováno
+                            </h3>
+
+                            <p class="uk-text-center" data-uk-observe>
+                                <span>Zbývá </span>
+                                <span id="remaining-time">{$waitTime}</span>
+                                <span> sekund</span>
+                            </p>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>                        
+{/block}
+
+{block script}
+    {if !$enableLogin}
+        <script>
+            $(function() {
+
+                var remain = {$waitTime};
+                var $rt = $('#remaining-time');
+
+                setInterval(function() {
+                    $rt.html(--remain);
+
+                    if (remain == 0) {
+                        window.location = URL('admin/login');
+                    }
+                }, 1000);
+
+            });
+        </script>
+    {/if}
+{/block}

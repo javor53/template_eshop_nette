@@ -1,0 +1,32 @@
+
+{block content}
+
+<section class="block big">
+    {form editEmailForm}
+        <div class="header">E-mail: {$email->subject}</div>
+        <div class="btns sticky-2">
+            <button n:name=submit type="submit" onclick="LoadContent();" class="btn btn-secondary btn-add">
+                          Uložit
+            </button>
+            <a n:href=":Eshop:OrderEmails:settings" class="">
+                    <div class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></div>
+            </a>  
+        </div>
+        <div class="product-detail">
+            <input n:name=id id="id" type="text" class="form-control d-none" required="">
+            <label class="font-14">Stav objednávky:</label>
+            <p><select n:name=type id="type" type="text" class="form-control" required=""></select></p>
+            <label class="font-14">Předmět:</label>
+            <p><input n:name=subject id="subject" type="text" class="form-control" required=""></p>
+            
+            <label class="font-14">Obsah:</label>
+
+            <textarea n:name=content id="textContent" rows="15" class="d-none form-control  my-1"  autofocus=""></textarea>
+            <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                    src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+            </iframe>
+                
+        </div>
+    {/form}
+</section>

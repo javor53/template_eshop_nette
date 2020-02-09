@@ -1,0 +1,145 @@
+
+{block content}
+
+<section class="block big">
+    {form emailTypeMultiplierForm}
+        <div class="header">Správa e-mailů</div>
+        <div class="btns sticky-2">
+            <a>
+                <button n:name=submit type="submit" class="btn btn-secondary btn-add">
+                          Uložit
+                </button>
+            </a>
+            <a>
+                <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#addEmail">
+                          Přidat e-mail
+                </button>
+            </a>
+            <a>
+                <button type="button" class="btn btn-secondary btn-add" data-toggle="modal" data-target="#editEmailSett">
+                          Nastavit účet
+                </button>
+            </a>
+        </div>
+        
+
+        
+        <table class="image-list__table price font-14">
+            <tr>
+                <th class="">ID</th>
+                <th class="col-w-200">Předmět</th>
+                <th class="col-w-50">Stav objednávky</th>
+                <th class="col-w-50">Odesílat</th>
+                <th></th>
+            </tr>
+        
+            {snippet emails}
+                {var $i = 0}
+                <div n:multiplier="email">
+            
+                {var $email = $emails[$i]}
+            
+                <tr class="post-catogory-row">
+                    <td class="">
+                        {$email->id}
+                        <input n:name=ids value="{$email->id}" type="hidden">
+                    </td>
+                    <td class="col-w-200">{$email->subject}</td>
+                    <td class="col-w-50">{$configType[$email->type]}</td>
+                    <td class="col-w-50">{input sending:$email->id}</td>
+
+                    <td class="w-unset">
+
+                        <a onclick="return confirm('Smazat produkt?');" n:href="OrderEmails:deleteEmail $email->id"  n:if="$user->loggedIn">
+                            <div class="btn btn-danger user-table__icon float-right"><img src="{$basePath}/assets/images/del_icon.png"></div>
+                        </a>
+
+
+                        <a n:href="OrderEmails:detail $email->id" n:if="$user->loggedIn">
+                            <div class="btn btn-info  user-table__icon float-right"><img src="{$basePath}/assets/images/sett_icon.png"></div>
+                        </a>
+                    </td>
+                </tr>
+            {php $i++}
+            </div>
+        {/snippet}       
+        </table>      
+    {/form} 
+    
+    <!-- Modal Form ADD EMAIL -->
+        <form n:name=addEmailForm class="form ">
+        <div class="modal fade" id="addEmail" tabindex="-1" role="dialog" aria-labelledby="addEmailLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Přidat email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                        <label for="subject" class="w-100 mt-3 small">Předmět:</label>
+                        <input n:name=subject id="subject" type="text" class="form-control" required="">
+                        <label for=type class="w-100 mt-3 small">Stav objednávky:</label>
+                        <select n:name=type id="type" type="text" class="form-control " required=""></select>
+
+                        <label for=content class="w-100 mt-3 small">Popis produktu:</label>
+                        <textarea n:name=content id="textContent" rows="15" class="d-none form-control  my-1"  autofocus=""></textarea>
+                        <iframe name="wysiwygTextField" id="wysiwygTextField" 
+                                src="{$basePath}/assets/iframes/iframeTextField.html" class="wysiwyg form-control bg-white pt-2 my-1">
+
+                        </iframe> 
+
+                        
+
+              </div>
+              <div class="modal-footer">
+                {*<button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>*}
+                <button class="btn btn-lg btn-primary btn-block my-3 " onclick="LoadContent();" n:name=save>Uložit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        <!-- Modal Form  --> 
+        
+        <!-- Modal Form EDIT EMAIL ACC SETTINGS -->
+        <form n:name=editEmailSettingForm class="form ">
+        <div class="modal fade" id="editEmailSett" tabindex="-1" role="dialog" aria-labelledby="addEmailSettLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Nastavení e-mailového účtu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                        <input n:name=id id="" type="text" class="form-control d-none" required="">
+                        <label for="host" class="w-100 mt-3 small">Host:</label>
+                        <input n:name=host id="host" type="text" class="form-control" >
+                        <label for=username class="w-100 mt-3 small">Uživatelské jméno:</label>
+                        <input n:name=username id="username" type="text" class="form-control " >
+                        <label for=password class="w-100 mt-3 small">Heslo k účtu:</label>
+                        <input n:name=password id="password" type="password" class="form-control " >
+                        <label for=secure class="w-100 mt-3 small">Security protokol:</label>
+                        <input n:name=secure id="secure" type="text" class="form-control " >
+                        <label for=name class="w-100 mt-3 small">Uživatelské jméno:</label>
+                        <input n:name=name id="name" type="text" class="form-control " >
+                        
+
+                        
+
+              </div>
+              <div class="modal-footer">
+                {*<button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>*}
+                <button class="btn btn-lg btn-primary btn-block my-3 "  n:name=send>Uložit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+        <!-- Modal Form  -->  
+    
+</section>
+

@@ -1,0 +1,22 @@
+Eshop Module initial configuration to run.
+
+- Create or import database
+
+- setup database config.local.neon
+
+- edit bootstrap.php file
+    add:
+    $configurator->createRobotLoader()
+        ->addDirectory(__DIR__ . '\EshopModule')
+        ->register();
+    
+    
+    $configurator->addConfig(__DIR__ . '/EshopModule/config/eshop.neon');
+    $configurator->addConfig(__DIR__ . '/EshopModule/config/config.local.neon');
+
+- connection with UserManager edit file BasePresenter.php
+     add:
+    /** @var Model\UserManager @inject */
+        public $userManager;
+
+

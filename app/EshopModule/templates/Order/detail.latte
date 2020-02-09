@@ -1,0 +1,100 @@
+
+{block content}
+
+<section class="block big">
+        <div class="header">Objednávka: {$order->id}</div>
+        <div class="btns sticky-2">
+            {if $order->payment_status != 'paid'}
+                <a onclick="return confirm('Potvrdit zaplacení.');" n:href="Order:setOrderPaid $order->id">
+                        <button class="btn btn-add">Potvrdit platbu</button>
+                </a>
+            {else}
+                <a>
+                    <button class="btn btn-add text-success">Zaplaceno</button>
+                </a> 
+            {/if}
+            {if $order->completed != '1'}
+                <a onclick="return confirm('Opravdu chcete zkompletovat objednávku?');" n:href="Order:setOrderCompleted $order->id,1">
+                        <button class="btn btn-add ">Zkompletovat</button>
+                </a>
+            {else}
+                <a onclick="return confirm('Opravdu chcete zrušit kompletaci?');" n:href="Order:setOrderCompleted $order->id,0">
+                        <button class="btn btn-add text-success">Kompletní</button>
+                </a>
+            {/if}
+            
+            <a n:href="Invoice:savePdf $order->id" target="_blank">
+                    <button class="btn btn-add">Faktura</button>
+            </a>
+            <a onclick="return confirm('Opravdu chcete smazat objednávku.');" n:href="Order:deleteOrder $order->id">
+                    <button class="btn btn-add">Smazat</button>
+            </a>
+            <a n:href=":Eshop:Order:" class="">
+                    <button class="btn btn-back"><img src="{$basePath}/assets/images/del_icon.png"></button>
+            </a>  
+        </div>
+           
+        <div class="order-detail">
+            <div class="row m-4">
+                <div class="col-4  p-3 border">
+                    <label class="font-14">Zákazník:</label>
+                    <p class="ml-3">{$customer->full_name}</p> 
+                    <p class="ml-3">{$customer->email}</p>
+                    <p class="ml-3">{$customer->phone}</p>
+                    {if $customer->customer_comp_id != NULL}
+                        <label class="font-14">Název společnosti:</label>
+                        <p class="ml-3">{$customer->comp_name}</p>
+                        <label class="font-14">IČ:</label>
+                        <p class="ml-3">{$customer->i_number}</p>
+                        <label class="font-14">DIČ:</label>
+                        <p class="ml-3">{$customer->vat}</p>
+                    {/if}
+                </div>
+                <div class="col-4 p-3 border">
+                    <label class="font-14">Fakturační adresa:</label>
+                    <p class="ml-3">{$customer->street} {$customer->street_number}</p>
+                    <p class="ml-3">{$customer->city}</p>
+                    <p class="ml-3">{$customer->zip}</p> 
+                </div>
+                <div class="col-4 p-3 border">
+                    <label class="font-14">Doručovací adresa:</label>
+                    {if $customer->delivery_address_id != NULL}
+                        <p class="ml-3">{$customer->d_street} {$customer->d_street_number}</p>
+                        <p class="ml-3">{$customer->d_city}</p>
+                        <p class="ml-3">{$customer->d_zip}</p>
+                    {/if}
+                </div>
+            </div>
+                 
+            
+            <div class="ml-4 mt-4">
+                
+                <label class="font-14">Stav:</label>
+                <p class="ml-3">{$configStatus[$order->status]}</p>
+
+                <label class="font-14">Doprava a platba: <div id="circle-{$order->payment_status}"></div> {$configPaymentStatus[$order->payment_status]}</label>
+                <p class="ml-3">{$configTransport[$order->transport] . ' - ' . $configPayment[$order->payment]}</p>
+
+                <label class="font-14">Položky:</label>
+            </div>
+            <table class="image-list__table font-14">
+                <tr>
+                    <th class="d-none-sm">ID</th>
+                    <th class="">Název</th>
+                    <th>Množství</th>
+                    <th>Cena</th>
+                </tr>
+            {foreach $products as $product => $value}
+                <tr class="post-catogory-row">
+                    <td class="">{$value['id']}</td>
+                    <td class="">{$value['title']}</td>
+                    <td class="">{$value['quantity']}</td>
+                    <td class="">{$value['price']}</td>
+
+                </tr>
+            {/foreach}
+            </table>    
+            
+            
+        </div>
+</section>
